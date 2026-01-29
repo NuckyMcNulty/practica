@@ -1,0 +1,8 @@
+body {
+    font-family: system-ui, sans-serif;
+}
+
+section {
+    max-width: 720px;
+    background-color: hotpink;
+}
