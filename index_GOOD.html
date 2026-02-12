@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
   <title>Actividad 1 · Modal</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,10 +19,36 @@
         <a href="index.html">Inicio</a>
         <a href="about.html">Acerca</a>
         <a href="contact.html">Contacto</a>
+=======
+  <title>Mi sitio con navegación</title>
+
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet">
+
+    <!--Aquí puedo usar mi propia hoja de estilos-->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-dark">
+
+  <!-- Header fijo con navegación -->
+  <header class="bg-success border-subtle sticky-top">
+    <div class="container py-3 d-flex justify-content-between align-items-center">
+      <h1 class="h4 m-0 text-white text-decoration-none">Mi sitio</h1>
+
+      <!-- NAV: menú de navegación -->
+      <!-- Los links apuntan a secciones con ID -->
+      <nav class="d-flex gap-3">
+        <a href="#inicio" class="text-light text-decoration-none">Inicio</a>
+        <a href="about.html" class="text-light text-decoration-none">Acerca</a>
+        <a href="contact.html" class="text-light text-decoration-none">Contacto</a>
+>>>>>>> 20a8f94bd2803fed5081ba0d8cdc5d1826ed8f88
       </nav>
     </div>
   </header>
 
+<<<<<<< HEAD
   <main class="container py-5">
 
     <section class="bg-white p-4 rounded-4 shadow-sm">
@@ -35,10 +62,29 @@
         data-bs-target="#modalResena">
         Ver reseña en modal
       </button>
+=======
+  <main class="container py-5 bg-success rounded-0">
+
+    <!-- Cada sección tiene un ID -->
+    <section id="inicio" class= "p-4 rounded-4 shadow-sm">
+      <h2 class="text-light text-decoration-none">Inicio</h2>
+      <p class="text-light text-decoration-none">Mensaje principal del sitio.</p>
+    </section>
+
+    <section id="acerca" class="mt-4 p-4 rounded-4 shadow-sm">
+      <h2 class="text-black text-decoration-none">Acerca</h2>
+      <p>Información sobre el proyecto o el autor.</p>
+    </section>
+
+    <section id="contacto" class="mt-4 p-4 rounded-4 shadow-sm">
+      <h2 class="text-light text-decoration-none">Contacto</h2>
+      <p class="text-light text-decoration-none">correo@ejemplo.com</p>
+>>>>>>> 20a8f94bd2803fed5081ba0d8cdc5d1826ed8f88
     </section>
 
   </main>
 
+<<<<<<< HEAD
   <!-- NUEVO: modal completo (se pega al final del body) -->
   <div class="modal fade" id="modalResena" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -73,3 +119,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+=======
+  <footer class="bg-dark border-subtle">
+    <div class="container py-3 text-center text-muted">
+      <small class="text-light text-decoration-none">© 2026 · Mi sitio</small>
+    </div>
+  </footer>
+
+</body>
+</html>
+>>>>>>> 20a8f94bd2803fed5081ba0d8cdc5d1826ed8f88
