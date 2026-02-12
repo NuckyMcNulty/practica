@@ -1,60 +1,3 @@
-
-Filtro por temaFiltro por temaFiltro por tema
-Todos los temas
-PENSUM DE LA MATERIA
-PENSUM DE LA MATERIA
-Material
-PENSUM
-Publicado: 14 ene
-RESEÑA DOCENTE
-RESEÑA DOCENTE
-Material
-RESEÑA DOCENTE
-Publicado: 15 ene
-TAREAS DE CLASE
-TAREAS DE CLASE
-Tarea
-[Ejercicio 03] Integración con google firebase
-Fecha de entrega: Ayer, 23:59
-Completada Tarea
-[Ejercicio 02] Navegación e imágenes
-Fecha de entrega: 4 feb, 23:59
-Completada Tarea
-[Ejercicio 01] Colores y estilos
-Fecha de entrega: 28 ene, 23:59
-SEMANA 1
-SEMANA 1
-Material
-MATERIAL
-Última modificación: 15 ene
-SEMANA 2
-SEMANA 2
-Material
-MATERIAL
-Última modificación: 22 ene
-SEMANA 4
-SEMANA 4
-Completada Tarea
-[Ejercicio 03] Avances proyecto parcial I
-Fecha de entrega: Ayer, 23:59
-Material
-MATERIAL
-Publicado: 5 feb
-index.html
-HTML
-
-styles.css
-CSS
-
-about.html
-HTML
-
-SEMANA 5
-SEMANA 5
-Material
-MATERIAL
-Última modificación: 11:04
-MATERIAL se ha mostrado 
 /* =========================================================
    Hoja de estilos complementaria a Bootstrap
    ---------------------------------------------------------
@@ -95,13 +38,15 @@ MATERIAL se ha mostrado
    - El fondo no interfiere con los componentes Bootstrap
 --------------------------------------------------------- */
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(13,110,253,.12), transparent 55%),
-    radial-gradient(900px 500px at 90% 0%, rgba(25,135,84,.12), transparent 55%),
-    var(--bg);
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #eef2ff,
+    #f0fdf4
+  );
+  background-attachment: fixed;
 }
+
 
 
 /* ---------------------------------------------------------
