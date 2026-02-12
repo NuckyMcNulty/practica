@@ -3,55 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi sitio con navegación</title>
+  <title>Actividad 1 · Modal</title>
 
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
 </head>
 
-<body class="bg-dark">
+<body class="bg-light">
 
-  <!-- Header fijo con navegación -->
-  <header class="bg-success border-subtle sticky-top">
+  <header class="bg-white border-bottom sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0 text-white text-decoration-none">Mi sitio</h1>
-
-      <!-- NAV: menú de navegación -->
-      <!-- Los links apuntan a secciones con ID -->
+      <h1 class="h4 m-0">Mi sitio</h1>
       <nav class="d-flex gap-3">
-        <a href="#inicio" class="text-light text-decoration-none">Inicio</a>
-        <a href="#acerca" class="text-light text-decoration-none">Acerca</a>
-        <a href="#contacto" class="text-light text-decoration-none">Contacto</a>
+        <a href="index.html">Inicio</a>
+        <a href="about.html">Acerca</a>
+        <a href="contact.html">Contacto</a>
       </nav>
     </div>
   </header>
 
-  <main class="container py-5 bg-success rounded-0">
+  <main class="container py-5">
 
-    <!-- Cada sección tiene un ID -->
-    <section id="inicio" class="bg-success p-4 rounded-4 shadow-sm">
-      <h2 class="text-light text-decoration-none">Inicio</h2>
-      <p class="text-light text-decoration-none">Mensaje principal del sitio.</p>
-    </section>
+    <section class="bg-white p-4 rounded-4 shadow-sm">
+      <h2 class="h5">Actividad: Modal</h2>
+      <p class="text-muted">Un botón abre una ventana encima de la página.</p>
 
-    <section id="acerca" class="mt-4 bg-warning p-4 rounded-4 shadow-sm">
-      <h2 class="text-black text-decoration-none">Acerca</h2>
-      <p>Información sobre el proyecto o el autor.</p>
-    </section>
-
-    <section id="contacto" class="mt-4 bg-success p-4 rounded-4 shadow-sm">
-      <h2 class="text-light text-decoration-none">Contacto</h2>
-      <p class="text-light text-decoration-none">correo@ejemplo.com</p>
+      <!-- NUEVO: botón disparador del modal -->
+      <button
+        class="btn btn-dark"
+        data-bs-toggle="modal"
+        data-bs-target="#modalResena">
+        Ver reseña en modal
+      </button>
     </section>
 
   </main>
 
-  <footer class="bg-dark border-subtle">
-    <div class="container py-3 text-center text-muted">
-      <small class="text-light text-decoration-none">© 2026 · Mi sitio</small>
-    </div>
-  </footer>
+  <!-- NUEVO: modal completo (se pega al final del body) -->
+  <div class="modal fade" id="modalResena" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
 
+        <div class="modal-header">
+          <h5 class="modal-title">Reseña de chilaquiles</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <p class="mb-3">Aquí va tu texto extra (precio, ingredientes, recomendación, etc.).</p>
+
+          <!-- NUEVO: video responsive -->
+          <div class="ratio ratio-16x9">
+            <iframe
+              src="https://www.youtube.com/embed/MpOBf4K_2KA"
+              title="Review"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Actividad 0: Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
