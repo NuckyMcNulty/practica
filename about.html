@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi sitio con Bootstrap</title>
+
+  <!-- Bootstrap NO se descarga: se carga desde Internet -->
+  <!-- CDN = el navegador pide Bootstrap a otro servidor -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- bg-light es una clase de Bootstrap -->
+<body class="bg-light">
+
+    <header class="bg-success border-subtle sticky-top">
+        <div class="container py-3 d-flex justify-content-between align-items-center">
+          <h1 class="h4 m-0 text-white text-decoration-none">Mi sitio</h1>
+    
+          <!-- NAV: menú de navegación -->
+          <!-- Los links apuntan a secciones con ID -->
+          <nav class="d-flex gap-3">
+            <a href="index.html" class="text-light text-decoration-none">Inicio</a>
+            <a href="about.html" class="text-light text-decoration-none">Acerca</a>
+            <a href="contact.html" class="text-light text-decoration-none">Contacto</a>
+          </nav>
+        </div>
+      </header>
+
+  <!-- container centra y limita el ancho del contenido -->
+  <main class="container py-5">
+
+    <!-- Esta sección ya tiene estilo sin CSS propio -->
+    <section class="p-4 rounded-4 shadow-sm">
+      <h1 class="h3">LOGITECH G</h1>
+      <p>Donde nace el gaming.</p>
+
+      <!-- btn y btn-primary son clases de Bootstrap -->
+      <button class="btn btn-primary">
+        Botón Bootstrap
+      </button>
+    </section>
+
+    <section class="p-4 rounded-4 shadow-sm">
+        <h2 class="h3">Nuevo teclado</h2>
+        <p>Nuevo Logitech G Pro60X.</p>
+        <a href="https://www.logitechg.com/es-mx/shop/p/pro-x-60-wireless-keyboard" target="_blank">
+        <img src="resources/teclado.jpg"
+        alt="Pro60X"
+        class="img-fluid rounded-3">
+        </a>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/K4WeneCTQIg?si=-52MJnUJbbOAs6Qq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  
+        <!-- btn y btn-primary son clases de Bootstrap -->
+        <button class="btn btn-primary">
+          Botón Bootstrap
+        </button>
+      </section>
+
+  </main>
+
+</body>
+</html>
