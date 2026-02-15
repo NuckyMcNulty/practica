@@ -1,8 +1,217 @@
-body {
-    font-family: system-ui, sans-serif;
+/* =========================================================
+   Hoja de estilos complementaria a Bootstrap
+   ---------------------------------------------------------
+   Objetivo:
+   - Ajustar la apariencia visual del sitio
+   - Mantener compatibilidad con Bootstrap
+   - Evitar sobreescrituras agresivas
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. Variables CSS (custom properties)
+   ---------------------------------------------------------
+   Se definen valores reutilizables para:
+   - colores base
+   - sombras
+   - bordes
+   - radios
+   Esto facilita la consistencia visual y el mantenimiento.
+--------------------------------------------------------- */
+:root {
+  --text: #111;
+  --muted: #6b7280;
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --border: rgba(0,0,0,.08);
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+  --radius: 18px;
 }
 
+
+/* ---------------------------------------------------------
+   2. Estilos base del documento
+   ---------------------------------------------------------
+   - Se define la tipografía general del sitio
+   - Se establece un fondo neutro con degradados suaves
+   - El fondo no interfiere con los componentes Bootstrap
+--------------------------------------------------------- */
+body {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #eef2ff,
+    #f0fdf4
+  );
+  background-attachment: fixed;
+}
+
+
+
+/* ---------------------------------------------------------
+   3. Encabezado y navegación
+   ---------------------------------------------------------
+   - Se mejora la legibilidad de los enlaces del menú
+   - Se añaden transiciones suaves para interacción
+   - No se modifica la estructura del navbar de Bootstrap
+--------------------------------------------------------- */
+header {
+  backdrop-filter: blur(8px);
+}
+
+header nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: background .2s ease, transform .2s ease;
+}
+
+header nav a:hover {
+  background: rgba(0,0,0,.06);
+  transform: translateY(-1px);
+}
+
+/* Estado visual para la página activa del menú */
+header nav a.active {
+  background: rgba(13,110,253,.12);
+  color: #0d6efd;
+}
+
+
+/* ---------------------------------------------------------
+   4. Secciones como contenedores visuales
+   ---------------------------------------------------------
+   - Las secciones se tratan como "tarjetas"
+   - Se definen bordes, fondo y radios
+   - Mantiene coherencia con el sistema de diseño
+--------------------------------------------------------- */
 section {
-    max-width: 720px;
-    background-color: hotpink;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+
+/* ---------------------------------------------------------
+   5. Sombras suaves
+   ---------------------------------------------------------
+   - Se redefine la clase shadow-sm para un efecto más sutil
+   - Se mantiene la convención de nombres de Bootstrap
+--------------------------------------------------------- */
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+
+/* ---------------------------------------------------------
+   6. Imágenes
+   ---------------------------------------------------------
+   - Se garantiza que las imágenes no excedan su contenedor
+   - Se ajustan radios para coherencia visual
+--------------------------------------------------------- */
+img {
+  max-width: 100%;
+}
+
+img.rounded-3 {
+  border-radius: 14px !important;
+}
+
+
+/* ---------------------------------------------------------
+   7. Carousel
+   ---------------------------------------------------------
+   - Se fija una altura uniforme para las imágenes
+   - Se usa object-fit para evitar deformaciones
+   - Se ajusta la altura en pantallas pequeñas
+--------------------------------------------------------- */
+.carousel-inner img {
+  height: 420px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .carousel-inner img {
+    height: 240px;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   8. Accordion
+   ---------------------------------------------------------
+   - Se suavizan bordes y tipografía
+   - Se elimina el contorno azul por defecto al hacer foco
+--------------------------------------------------------- */
+.accordion-item {
+  border-color: var(--border);
+}
+
+.accordion-button {
+  font-weight: 600;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+
+/* ---------------------------------------------------------
+   9. Botones
+   ---------------------------------------------------------
+   - Se redondean para un estilo más uniforme
+   - Se agrega retroalimentación visual al interactuar
+--------------------------------------------------------- */
+.btn {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   10. Formularios
+   ---------------------------------------------------------
+   - Se suavizan bordes
+   - Se mejora el estado de enfoque para accesibilidad
+--------------------------------------------------------- */
+.form-control {
+  border-radius: 14px;
+  border-color: var(--border);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+  border-color: rgba(13,110,253,.35);
+}
+
+
+/* ---------------------------------------------------------
+   11. Pie de página
+   ---------------------------------------------------------
+   - Se separa visualmente del contenido principal
+--------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--border);
+}
+
+
+/* ---------------------------------------------------------
+   12. Clase utilitaria opcional
+   ---------------------------------------------------------
+   - Se puede usar para destacar una sección específica
+   - No es obligatoria para el funcionamiento del sitio
+--------------------------------------------------------- */
+.highlight {
+  background: linear-gradient(
+    135deg,
+    rgba(13,110,253,.10),
+    rgba(25,135,84,.08)
+  );
 }
