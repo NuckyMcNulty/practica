@@ -76,7 +76,7 @@ header nav a:hover {
 
 /* Estado visual para la página activa del menú */
 header nav a.active {
-  background: rgba(35, 8, 110, 0.12);
+  background: rgba(77, 22, 231, 0.12);
   color: #4f11a0;
 }
 
@@ -129,6 +129,9 @@ img.rounded-3 {
    - Se ajusta la altura en pantallas pequeñas
 --------------------------------------------------------- */
 .carousel-inner img {
+   width: 100%;      /* Ajusta esta altura a tu gusto */
+    object-fit: cover;  /* Llena el espacio sin deformarse */
+    object-position: center;
   height: 420px;
   object-fit: cover;
 }
