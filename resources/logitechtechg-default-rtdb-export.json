@@ -1,0 +1,59 @@
+{
+  "contactos": {
+    "-OlHsWd9QvYZ8zlneY0H": {
+      "createdAt": 1770917075739,
+      "email": "paquitacabeza@cocoschool.mx",
+      "mensaje": "Francis bunbaye",
+      "nombre": "Paquita Cabeza",
+      "page": "http://127.0.0.1:5500/contact.html"
+    },
+    "-OlHw7bR2_Yqa3fCGlR-": {
+      "createdAt": 1770918021794,
+      "email": "perroguarumozazazayacusayacusa@gmail.com",
+      "mensaje": "AAAAAAAAAAH",
+      "nombre": "El perro guarumo",
+      "page": "http://127.0.0.1:5500/contact.html"
+    },
+    "-OllxxFhiDq1DfSRgCyB": {
+      "createdAt": 1771438590725,
+      "email": "TEST@TEST.COM",
+      "mensaje": "qwe",
+      "nombre": "qwe",
+      "page": "https://nuckymcnulty.github.io/practica/contact.html"
+    },
+    "-OlnbYGtRLpB_dKx-6fj": {
+      "createdAt": 1771466274306,
+      "email": "paquitacabeza@cocoschool.mx",
+      "mensaje": "Deseo comprar unos audífonos acá perrones :D",
+      "nombre": "Paquita Cabeza",
+      "page": "http://127.0.0.1:5500/contact.html"
+    }
+  },
+
+  "store": {
+    "item01": {
+      "nombre": "Logitech G pro X60",
+      "precio": 2999,
+      "categoria": "Teclados",
+      "imagen": "resources/pro-x-60-keyboard-black-gallery-1-us.png"
+    
+  },
+
+  "item02": {
+    "nombre": "pro x superstrike",
+    "precio": 1999,
+    "categoria": "Mouse",
+    "imagen": "resources/pro-x2-superstrike-profile-angle-gallery-4.webp"
+    
+  },
+
+  "item03": {
+    "nombre": "Logitech G G321",
+    "precio": 2999,
+    "categoria": "Audifonos",
+    "imagen": "resources/g321-lightspeed-3qtr-front-left-angle-black-gallery-1.png"
+    
+  }
+
+ }
+}
