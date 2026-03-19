@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producto · Mi sitio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="bg-white border-bottom sticky-top">
+    <div class="container py-3 d-flex justify-content-between align-items-center">
+      <h1 class="h4 m-0">Mi sitio</h1>
+
+      <nav class="d-flex gap-3">
+        <a href="tienda.html">Tienda</a>
+        <a href="contact.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div id="status" class="mb-3"></div>
+
+    <section id="productDetail" class="bg-white p-4 rounded-4 shadow-sm mb-4"></section>
+
+    <section class="bg-white p-4 rounded-4 shadow-sm mb-4">
+      <h3 class="h5 mb-3">Agregar review</h3>
+
+      <form id="reviewForm" class="row g-3">
+        <div class="col-12 col-md-4">
+          <label class="form-label">Nombre</label>
+          <input class="form-control" type="text" name="nombre" required>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <label class="form-label">Review</label>
+          <input class="form-control" type="text" name="mensaje" required>
+        </div>
+
+        <div class="col-12">
+          <button class="btn btn-success" type="submit">Enviar review</button>
+        </div>
+      </form>
+
+      <div id="reviewStatus" class="mt-3"></div>
+    </section>
+
+    <section class="bg-white p-4 rounded-4 shadow-sm">
+      <h3 class="h5 mb-3">Reviews</h3>
+      <div id="reviewsList"></div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-top">
+    <div class="container py-3 text-center text-muted">
+      <small>© 2026 · Mi sitio</small>
+    </div>
+  </footer>
+
+  <script type="module" src="js/producto.js"></script>
+</body>
+</html>
