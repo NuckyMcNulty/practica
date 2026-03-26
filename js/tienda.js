@@ -1,71 +1,54 @@
-// js/tienda.js
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
 import { db } from "./firebase.js";
+import { addToUserCart } from "./carrito.js";
 
 const grid = document.getElementById("gridProductos");
 const status = document.getElementById("status");
 
-/* Dibuja los productos en pantalla */
 function render(lista) {
   grid.innerHTML = "";
 
-  if (lista.length === 0) {
-    grid.innerHTML = `
-      <div class="col-12">
-        <div class="alert alert-warning">No hay productos para mostrar.</div>
+  for (const p of lista) {
+    const div = document.createElement("div");
+    div.className = "col-4";
+
+    div.innerHTML = `
+      <div class="card p-2 mb-3">
+        <img src="${p.imagen}" class="img-fluid">
+        <h5>${p.nombre}</h5>
+        <p>$${p.precio}</p>
+        <button class="btn btn-success btn-add" data-id="${p.id}">
+          Agregar
+        </button>
       </div>
     `;
-    return;
+
+    grid.appendChild(div);
   }
 
-  for (const p of lista) {
-    const col = document.createElement("div");
-    col.className = "col-12 col-md-4";
+  grid.querySelectorAll(".btn-add").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const product = lista.find(p => p.id === btn.dataset.id);
 
-    col.innerHTML = `
-      <article class="card h-100 shadow-sm">
-        <a href="producto.html?id=${p.id}" class="product-link">
-          <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
-        </a>
-
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start gap-2">
-            <h3 class="h6 card-title mb-1">${p.nombre}</h3>
-            <span class="badge text-bg-dark">${p.categoria}</span>
-          </div>
-          <p class="text-muted mb-0">$${p.precio}</p>
-        </div>
-      </article>
-    `;
-
-    grid.appendChild(col);
-  }
+      try {
+        await addToUserCart(product);
+        status.innerHTML = "Producto agregado";
+      } catch (err) {
+        status.innerHTML = err.message;
+      }
+    });
+  });
 }
 
-status.innerHTML = `<div class="alert alert-info">Cargando productos…</div>`;
+onValue(ref(db, "store"), (snapshot) => {
+  const data = snapshot.val();
 
-/* Lectura en tiempo real desde la ruta store */
-onValue(
-  ref(db, "store"),
-  (snapshot) => {
-    const data = snapshot.val();
+  if (!data) return;
 
-    if (!data) {
-      render([]);
-      status.innerHTML = `<div class="alert alert-warning">No hay datos en store.</div>`;
-      return;
-    }
+  const productos = Object.entries(data).map(([id, p]) => ({
+    id,
+    ...p
+  }));
 
-    const productos = Object.entries(data).map(([id, p]) => ({
-      id,
-      ...p
-    }));
-
-    render(productos);
-    status.innerHTML = `<div class="alert alert-success">Productos cargados: ${productos.length}</div>`;
-  },
-  (err) => {
-    console.error(err);
-    status.innerHTML = `<div class="alert alert-danger">Error al leer productos.</div>`;
-  }
-);
+  render(productos);
+});
