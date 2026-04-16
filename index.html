@@ -3,19 +3,308 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Actividad 1 · Mi sitio</title>
+  <title>Mi sitio</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+
+  <!-- Fuente display para el hero — puedes cambiarla por cualquier otra de Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------------------------------------------------
+       HERO SECTION — estilos propios, no tocan el resto del sitio
+    --------------------------------------------------------- */
+
+    /* El hero ocupa toda la pantalla */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100svh;        /* svh = altura de la pantalla sin la barra del browser en móvil */
+      min-height: 560px;
+      overflow: hidden;
+      background: #07070d;   /* fondo oscuro por si Three.js tarda en cargar */
+    }
+
+    /* El canvas de Three.js va detrás de todo */
+    .hero canvas {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Capa de contenido encima del canvas */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 6vw;
+      max-width: 780px;
+    }
+
+    /* Eyebrow — texto pequeño arriba del título */
+    .hero-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(99,102,241,0.9);
+      margin-bottom: 20px;
+
+      /* Línea decorativa antes del texto */
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: rgba(99,102,241,0.7);
+    }
+
+    /* Título principal */
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);  /* clamp = tamaño fluido */
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 24px;
+
+      /* Animación de entrada */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.3s forwards;
+    }
+
+    /* Gradiente en parte del título */
+    .hero-title span {
+      background: linear-gradient(135deg, #818cf8, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtítulo */
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      max-width: 480px;
+      margin-bottom: 40px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.5s forwards;
+    }
+
+    /* Botones del hero */
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      opacity: 0;
+      animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.7s forwards;
+    }
+
+    .btn-hero-primary {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-hero-primary:hover {
+      background: #4f46e5;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-hero-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .btn-hero-ghost:hover {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator — flecha animada abajo */
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.3);
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .hero-scroll svg {
+      width: 18px;
+      opacity: 0.4;
+    }
+
+    /* Gradiente que fusiona el hero con el resto del sitio */
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, #f6f7fb);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Nav superpuesto al hero — fondo transparente */
+    .navbar-hero {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      padding: 24px 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-hero .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .navbar-hero nav a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .navbar-hero nav a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Animación de entrada compartida */
+    @keyframes heroIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ---------------------------------------------------------
+       RESTO DEL SITIO — sigue igual que antes
+    --------------------------------------------------------- */
+
+    /* El header sticky original solo se muestra al hacer scroll */
+    .header-sticky {
+      display: none;
+    }
+  </style>
 </head>
 
+<body>
 
-<body class="bg-dark">
+  <!-- =====================================================
+       HERO SECTION — lo nuevo
+  ====================================================== -->
+  <section class="hero" id="inicio">
 
-<header class="bg-white border-bottom sticky-top">
+    <!-- Nav flotante sobre el hero -->
+    <div class="navbar-hero">
+      <a href="index.html" class="logo">Logitech G</a>
+      <nav class="d-flex gap-1">
+        <a href="about.html">Acerca</a>
+        <a href="tienda.html">Tienda</a>
+        <a href="contact.html">Contacto</a>
+      </nav>
+    </div>
+
+    <!-- Canvas de Three.js se inyecta aquí por JS -->
+
+    <!-- Contenido del hero -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">JUEGA - EXPLORA - CONÉCTATE</p>
+      <h1 class="hero-title">
+        Logitech G<br>
+        <span>TODO ESTA AQUÍ</span><br>
+        ENTRA.
+      </h1>
+      <p class="hero-subtitle">
+        EL CLICK MÁS RÁPIDO, TOTALMENTE PERSONALIZABLE.
+      </p>
+      <div class="hero-actions">
+        <a href="tienda.html" class="btn-hero-primary">Ver tienda</a>
+        <a href="about.html" class="btn-hero-ghost">Saber más</a>
+      </div>
+    </div>
+
+    <!-- Flecha de scroll -->
+    <div class="hero-scroll">
+      <span>scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+
+    <!-- Gradiente que funde el hero con el fondo del sitio -->
+    <div class="hero-fade">AAAAAA</div>
+
+  </section>
+
+
+  <!-- =====================================================
+       RESTO DEL SITIO — igual que antes
+  ====================================================== -->
+
+  <!-- Header sticky (aparece al salir del hero) -->
+  <header class="bg-white border-bottom sticky-top" id="header-sticky" style="display:none">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Logitech G</h1>
-
+      <h1 class="h4 m-0">Mi sitio</h1>
       <nav class="d-flex gap-3">
         <a href="tienda.html">Tienda</a>
         <a href="contact.html">Contacto</a>
@@ -27,58 +316,231 @@
     </div>
   </header>
 
-  <img src="resources/PRO-X2-SUPERSTRIKE-Awareness-KV-16X9-en-1-scaled.jpg" alt="Descripción de la imagen" width="1920" height="1080">
-    
-  
-
   <main class="container py-5">
 
     <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h2 class="h5">El click más rápido del oeste</h2>
-      <p class="text-muted">PRO X2 SUPERSTRIKE.</p>
+      <h2 class="h5">LOGITECH PRO X2 SUPERSTRIKE</h2>
+      <p class="text-muted">Descubre la velocidad.</p>
 
-      <!-- NUEVO: botón disparador del modal -->
       <button
         class="btn btn-dark"
         data-bs-toggle="modal"
         data-bs-target="#modalResena">
-        Ver vídeo
+        Ver reseña en modal
       </button>
     </section>
 
   </main>
 
-  <!-- NUEVO: modal completo (se pega al final del body) -->
+  <!-- Modal (igual que antes) -->
   <div class="modal fade" id="modalResena" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
-
         <div class="modal-header">
-          <h5 class="modal-title"></h5>
+          <h5 class="modal-title">Pro X2 SUPERSTRIKE</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-
         <div class="modal-body">
-          <p class="mb-3">PRO X2 SUPERSTRIKE supera los niveles más altos de competencia, con accionamiento personalizable, reinicios del disparador rápido y respuesta háptica de clic. Diseñado con los profesionales, hecho para ganar..</p>
-
-          <!-- NUEVO: video responsive -->
+          <p class="mb-3">Nuevo Mouse Pro X2 SUPERSTRIKE.</p>
           <div class="ratio ratio-16x9">
-            <iframe
-              src="https://www.youtube.com/embed/_OnzFEtZV2o?si=2jZDXi0Bd6nTh9LZ"
-              title="PRO X2 SUPERSTRIKE - Logitech G"
-              allowfullscreen></iframe>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/_OnzFEtZV2o?si=yZ7K-daZ4a3XBjo1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
-
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Actividad 0: Bootstrap JS -->
+  <footer class="bg-white border-top">
+    <div class="container py-3 text-center text-muted">
+      <small>© 2026 · Mi sitio</small>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- =====================================================
+       THREE.JS — solo vive en el hero
+  ====================================================== -->
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js" } }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    // --------------------------------------------------
+    // SETUP — renderer va dentro del hero, no en el body
+    // --------------------------------------------------
+
+    const hero = document.getElementById('inicio');
+
+    const scene    = new THREE.Scene();
+    const camera   = new THREE.PerspectiveCamera(60, hero.clientWidth / hero.clientHeight, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true = fondo transparente
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(hero.clientWidth, hero.clientHeight);
+    renderer.setClearColor(0x000000, 0); // completamente transparente
+    hero.appendChild(renderer.domElement);
+
+    camera.position.set(3.5, 1.5, 4);
+    camera.lookAt(0, 0, 0);
+
+
+    // --------------------------------------------------
+    // OBJETO PRINCIPAL — torus knot (más impactante que un cubo)
+    // Puedes cambiarlo por BoxGeometry, SphereGeometry, etc.
+    // --------------------------------------------------
+
+    const geo = new THREE.TorusKnotGeometry(1, 0.32, 200, 32);
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0x6366f1,
+      roughness: 0.15,
+      metalness: 0.9,
+      envMapIntensity: 1,
+    });
+
+    const objeto = new THREE.Mesh(geo, mat);
+    scene.add(objeto);
+
+
+    // --------------------------------------------------
+    // LUCES — tres puntos de luz para efecto cinematográfico
+    // --------------------------------------------------
+
+    // Luz principal — blanca, desde arriba-derecha
+    const luzPrincipal = new THREE.DirectionalLight(0xffffff, 3);
+    luzPrincipal.position.set(5, 8, 5);
+    scene.add(luzPrincipal);
+
+    // Luz de acento — morada, desde la izquierda
+    const luzMorada = new THREE.PointLight(0x818cf8, 6, 12, 2);
+    luzMorada.position.set(-4, 2, 3);
+    scene.add(luzMorada);
+
+    // Luz de acento — verde, desde abajo
+    const luzVerde = new THREE.PointLight(0x34d399, 4, 10, 2);
+    luzVerde.position.set(2, -4, 2);
+    scene.add(luzVerde);
+
+    // Ambiental mínima
+    scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+
+
+    // --------------------------------------------------
+    // PARTÍCULAS — puntos flotando alrededor del objeto
+    // --------------------------------------------------
+
+    const particleGeo = new THREE.BufferGeometry();
+    const count = 800;
+    const posiciones = new Float32Array(count * 3);
+
+    for (let i = 0; i < count * 3; i++) {
+      posiciones[i] = (Math.random() - 0.5) * 14;
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(posiciones, 3));
+
+    const particleMat = new THREE.PointsMaterial({
+      color: 0x818cf8,
+      size: 0.025,
+      transparent: true,
+      opacity: 0.6,
+    });
+
+    const particulas = new THREE.Points(particleGeo, particleMat);
+    scene.add(particulas);
+
+
+    // --------------------------------------------------
+    // INTERACCIÓN CON EL MOUSE
+    // El objeto sigue suavemente al cursor
+    // --------------------------------------------------
+
+    const mouse = { x: 0, y: 0 };
+    const target = { x: 0, y: 0 }; // posición suavizada
+
+    hero.addEventListener('mousemove', (e) => {
+      // Convertimos coordenadas del mouse a rango -1 / +1
+      mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+
+    // --------------------------------------------------
+    // LOOP DE ANIMACIÓN
+    // --------------------------------------------------
+
+    const reloj = new THREE.Clock();
+
+    function animar() {
+      requestAnimationFrame(animar);
+
+      const t = reloj.getElapsedTime();
+
+      // Rotación base del objeto
+      objeto.rotation.x = t * 0.15;
+      objeto.rotation.y = t * 0.2;
+
+      // Suavizamos el movimiento del mouse (lerp = interpolación lineal)
+      // Cuanto más pequeño el número (0.03), más suave y lento
+      target.x += (mouse.x - target.x) * 0.03;
+      target.y += (mouse.y - target.y) * 0.03;
+
+      // Inclinamos el objeto según el mouse
+      objeto.rotation.x += target.y * 0.3;
+      objeto.rotation.y += target.x * 0.3;
+
+      // Movimiento de "respiración"
+      objeto.position.y = Math.sin(t * 0.6) * 0.12;
+
+      // Las partículas rotan muy lento
+      particulas.rotation.y = t * 0.02;
+      particulas.rotation.x = t * 0.01;
+
+      // Las luces orbitan para dar vida al reflejo
+      luzMorada.position.x = Math.sin(t * 0.4) * 5;
+      luzMorada.position.z = Math.cos(t * 0.4) * 4;
+      luzVerde.position.x  = Math.cos(t * 0.3) * 4;
+      luzVerde.position.y  = Math.sin(t * 0.3) * -4;
+
+      renderer.render(scene, camera);
+    }
+
+    animar();
+
+
+    // --------------------------------------------------
+    // RESPONSIVE
+    // --------------------------------------------------
+
+    window.addEventListener('resize', () => {
+      camera.aspect = hero.clientWidth / hero.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(hero.clientWidth, hero.clientHeight);
+    });
+
+
+    // --------------------------------------------------
+    // HEADER STICKY — aparece al salir del hero
+    // --------------------------------------------------
+
+    const headerSticky = document.getElementById('header-sticky');
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Mostramos el header normal cuando el hero ya no es visible
+        headerSticky.style.display = entry.isIntersecting ? 'none' : 'block';
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(hero);
+
+  </script>
+
 </body>
 </html>
