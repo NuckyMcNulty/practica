@@ -208,31 +208,7 @@
     luzRelleno.position.set(-5, -3, -3);
     scene.add(luzRelleno);
 
-    // Cargar modelo
-    // 🔄 CAMBIA AQUÍ por tu archivo
-    new GLTFLoader().load(
-      './augusto.gltf',
-      (gltf) => {
-        const modelo = gltf.scene;
-
-        // Centrar y escalar
-        const caja   = new THREE.Box3().setFromObject(modelo);
-        const centro = new THREE.Vector3();
-        const tamaño = new THREE.Vector3();
-        caja.getCenter(centro);
-        caja.getSize(tamaño);
-        modelo.position.sub(centro);
-        modelo.scale.setScalar(3 / tamaño.length());
-
-        scene.add(modelo);
-        loader3d.classList.add('oculto');
-      },
-      null,
-      (err) => {
-        console.error(err);
-        loader3d.textContent = 'No se pudo cargar el modelo.';
-      }
-    );
+    // El modelo se carga cuando el usuario abre el modal (ver evento show.bs.modal abajo)
 
     // Loop
     (function animar() {
@@ -241,8 +217,48 @@
       renderer.render(scene, camera);
     })();
 
-    // Cuando el modal abre, ajustamos el tamaño del renderer
-    // (el modal estaba oculto al iniciar, entonces las dimensiones eran 0)
+    // Cuando el modal abre:
+    // 1. Leemos la ruta del modelo desde el botón que lo disparó
+    // 2. Ajustamos el tamaño del renderer (estaba oculto, dimensiones eran 0)
+    document.getElementById('modal3d').addEventListener('show.bs.modal', (e) => {
+      // e.relatedTarget es el botón que abrió el modal
+      const rutaModelo = e.relatedTarget?.dataset?.modelo;
+
+      if (rutaModelo) {
+        // Limpiamos el modelo anterior si había uno
+        scene.children
+          .filter(obj => obj.name === 'modeloCargado')
+          .forEach(obj => scene.remove(obj));
+
+        loader3d.classList.remove('oculto');
+        loader3d.textContent = 'Cargando modelo…';
+
+        new GLTFLoader().load(
+          './' + rutaModelo,
+          (gltf) => {
+            const modelo = gltf.scene;
+            modelo.name = 'modeloCargado';
+
+            const caja   = new THREE.Box3().setFromObject(modelo);
+            const centro = new THREE.Vector3();
+            const tamaño = new THREE.Vector3();
+            caja.getCenter(centro);
+            caja.getSize(tamaño);
+            modelo.position.sub(centro);
+            modelo.scale.setScalar(3 / tamaño.length());
+
+            scene.add(modelo);
+            loader3d.classList.add('oculto');
+          },
+          null,
+          (err) => {
+            console.error(err);
+            loader3d.textContent = 'No se pudo cargar el modelo.';
+          }
+        );
+      }
+    });
+
     document.getElementById('modal3d').addEventListener('shown.bs.modal', () => {
       camera.aspect = wrap.clientWidth / wrap.clientHeight;
       camera.updateProjectionMatrix();

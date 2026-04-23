@@ -57,7 +57,8 @@ async function loadProduct() {
         <button
           class="btn btn-dark mt-3"
           data-bs-toggle="modal"
-          data-bs-target="#modal3d">
+          data-bs-target="#modal3d"
+          data-modelo="${producto.modelo || ''}">
           🧊 Ver en 3D
         </button>
       </div>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clase 1 · Three.js</title>
+  <style>
+    /* El canvas va a ocupar toda la pantalla */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0f; overflow: hidden; }
+    canvas { display: block; }
+
+    /* Instrucciones en pantalla (puedes quitarlas después) */
+    #info {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-family: system-ui, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="info">Three.js · Clase 1 — Escena básica</div>
+
+  <!--
+    Importamos Three.js desde un CDN.
+    No necesitamos npm ni Node.js para empezar.
+  -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    // =====================================================
+    // LOS 3 INGREDIENTES BÁSICOS DE TODA ESCENA THREE.JS
+    // =====================================================
+
+    // 1. SCENE — el "mundo" donde viven todos los objetos
+    const scene = new THREE.Scene();
+
+    // 2. CAMERA — el "ojo" que mira la escena
+    //    PerspectiveCamera(fov, aspect, near, far)
+    //    fov   = campo de visión en grados (75 es natural)
+    //    aspect = ancho / alto de la pantalla
+    //    near  = distancia mínima que renderiza
+    //    far   = distancia máxima que renderiza
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    // Alejamos la cámara para que podamos ver el cubo
+    // Por defecto está en (0,0,0) igual que el cubo
+    camera.position.z = 3;
+
+    // 3. RENDERER — el "motor" que dibuja todo en pantalla
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true   // bordes suavizados
+    });
+
+    // Le decimos qué tan grande debe ser el canvas
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Lo insertamos en el HTML
+    document.body.appendChild(renderer.domElement);
+
+
+    // =====================================================
+    // CREAR UN OBJETO 3D
+    // Todo objeto tiene 2 partes: geometría + material
+    // =====================================================
+
+    // GEOMETRÍA — la forma (en este caso un cubo de 1x1x1)
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+    // MATERIAL — el "aspecto" del objeto
+    // MeshStandardMaterial reacciona a las luces (más realista)
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x6366f1,       // color en hexadecimal (morado)
+      roughness: 0.3,        // qué tan rugosa es la superficie
+      metalness: 0.6         // qué tan metálica se ve
+    });
+
+    // MESH — unimos geometría + material para crear el objeto final
+    const cubo = new THREE.Mesh(geometry, material);
+
+    // Agregamos el cubo a la escena
+    scene.add(cubo);
+
+
+    // =====================================================
+    // LUCES
+    // Sin luz, MeshStandardMaterial se ve negro
+    // =====================================================
+
+    // Luz ambiental — ilumina todo parejo desde todos lados
+    const luzAmbiental = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(luzAmbiental);
+
+    // Luz direccional — como el sol, viene desde una dirección
+    const luzDireccional = new THREE.DirectionalLight(0xffffff, 2);
+    luzDireccional.position.set(5, 5, 5);
+    scene.add(luzDireccional);
+
+    // Luz de acento — color frío desde abajo para más dramatismo
+    const luzAcento = new THREE.DirectionalLight(0x818cf8, 1);
+    luzAcento.position.set(-3, -3, 2);
+    scene.add(luzAcento);
+
+
+    // =====================================================
+    // EL LOOP DE ANIMACIÓN
+    // requestAnimationFrame llama a "animar" ~60 veces por segundo
+    // =====================================================
+
+    function animar() {
+
+      // Le pedimos al navegador que llame a esta función otra vez
+      requestAnimationFrame(animar);
+
+      // Rotamos el cubo un poco en cada frame
+      cubo.rotation.x += 0.005;
+      cubo.rotation.y += 0.008;
+
+      // Renderizamos: "fotografia" la escena con la cámara
+      renderer.render(scene, camera);
+    }
+
+    // Iniciamos el loop
+    animar();
+
+
+    // =====================================================
+    // RESPONSIVE — ajustar cuando cambia el tamaño de ventana
+    // =====================================================
+
+    window.addEventListener('resize', () => {
+      // Actualizamos el aspect ratio de la cámara
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      // Actualizamos el tamaño del renderer
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+  </script>
+</body>
+</html>
