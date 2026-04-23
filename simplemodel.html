@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visor 3D</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #111; overflow: hidden; }
+    canvas { display: block; }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #111;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.3);
+      font-family: system-ui, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      transition: opacity 0.4s;
+    }
+
+    #loader.oculto { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <div id="loader">Cargando modelo…</div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const scene    = new THREE.Scene();
+    const camera   = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    camera.position.set(0, 0, 5);
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    document.body.appendChild(renderer.domElement);
+
+    // OrbitControls — rotar con click, zoom con rueda
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    // Luces
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+    const luz = new THREE.DirectionalLight(0xffffff, 3);
+    luz.position.set(5, 8, 5);
+    scene.add(luz);
+
+    // Cargar modelo
+    // 🔄 CAMBIA AQUÍ
+    new GLTFLoader().load('./augusto.gltf',
+      (gltf) => {
+        const modelo = gltf.scene;
+
+        // Centrar y escalar
+        const caja = new THREE.Box3().setFromObject(modelo);
+        const centro = new THREE.Vector3();
+        const tamaño = new THREE.Vector3();
+        caja.getCenter(centro);
+        caja.getSize(tamaño);
+        modelo.position.sub(centro);
+        modelo.scale.setScalar(3 / tamaño.length());
+
+        scene.add(modelo);
+        document.getElementById('loader').classList.add('oculto');
+      },
+      null,
+      (err) => console.error(err)
+    );
+
+    // Loop
+    (function animar() {
+      requestAnimationFrame(animar);
+      controls.update();
+      renderer.render(scene, camera);
+    })();
+
+    // Responsive
+    window.addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+  </script>
+</body>
+</html>
