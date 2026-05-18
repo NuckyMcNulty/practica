@@ -7,61 +7,6 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-
-  <style>
-    /* ---------------------------------------------------------
-       MODAL DEL VISOR 3D
-    --------------------------------------------------------- */
-
-    /* El canvas ocupa todo el modal-body */
-    #visor3d-canvas-wrap {
-      position: relative;
-      width: 100%;
-      height: 480px;
-      background: #0a0a0f;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    #visor3d-canvas-wrap canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-    }
-
-    /* Loader dentro del visor */
-    #visor3d-loader {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0a0a0f;
-      color: rgba(255,255,255,0.3);
-      font-size: 13px;
-      font-family: system-ui, sans-serif;
-      letter-spacing: 0.08em;
-      transition: opacity 0.4s;
-      z-index: 5;
-    }
-
-    #visor3d-loader.oculto {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* Hint de controles */
-    .visor3d-hint {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #9ca3af;
-      text-align: center;
-    }
-
-    .visor3d-hint span {
-      margin: 0 8px;
-    }
-  </style>
 </head>
 <body>
 
@@ -69,40 +14,35 @@
     <div class="container py-3 d-flex justify-content-between align-items-center">
       <h1 class="h4 m-0">Mi sitio</h1>
       <nav class="d-flex gap-3">
-        <a href="index.html">Inicio</a>
-        <a href="about.html">Acerca</a>
         <a href="tienda.html">Tienda</a>
         <a href="contact.html">Contacto</a>
+        <a href="index.html">Inicio</a>
+        <a href="about.html">Descubrir</a>
+        <a href="carrito.html">Carrito</a>
+        <a href="auth.html">Iniciar sesión</a>
       </nav>
     </div>
   </header>
 
   <main class="container py-5">
     <div id="status" class="mb-3"></div>
-
-    <!-- Detalle del producto — el JS de Firebase inyecta aquí el HTML -->
-    <!-- Se agrega el botón "Ver en 3D" dentro del detalle via producto.js -->
     <section id="productDetail" class="bg-white p-4 rounded-4 shadow-sm mb-4"></section>
 
     <section class="bg-white p-4 rounded-4 shadow-sm mb-4">
       <h3 class="h5 mb-3">Agregar review</h3>
-
       <form id="reviewForm" class="row g-3">
         <div class="col-12 col-md-4">
           <label class="form-label">Nombre</label>
           <input class="form-control" type="text" name="nombre" required>
         </div>
-
         <div class="col-12 col-md-8">
           <label class="form-label">Review</label>
           <input class="form-control" type="text" name="mensaje" required>
         </div>
-
         <div class="col-12">
           <button class="btn btn-success" type="submit">Enviar review</button>
         </div>
       </form>
-
       <div id="reviewStatus" class="mt-3"></div>
     </section>
 
@@ -118,52 +58,11 @@
     </div>
   </footer>
 
-
-  <!-- =====================================================
-       MODAL VISOR 3D
-  ====================================================== -->
-  <div class="modal fade" id="modal3d" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h5 class="modal-title">Vista 3D del producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <div class="modal-body">
-          <!-- Contenedor del canvas -->
-          <div id="visor3d-canvas-wrap">
-            <div id="visor3d-loader">Cargando modelo…</div>
-            <!-- Three.js inyecta el canvas aquí -->
-          </div>
-
-          <!-- Instrucciones de uso -->
-          <p class="visor3d-hint">
-            <span>🖱 Arrastrar → rotar</span>
-            <span>⚲ Rueda → zoom</span>
-            <span>↕ Click der. → mover</span>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Firebase -->
   <script type="module" src="js/producto.js"></script>
 
-
   <!-- =====================================================
-       THREE.JS — visor del modal
+       THREE.JS — visor embebido
   ====================================================== -->
   <script type="importmap">
     {
@@ -179,25 +78,18 @@
     import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    const wrap = document.getElementById('visor3d-canvas-wrap');
-    const loader3d = document.getElementById('visor3d-loader');
-
-    // Setup
+    // Setup — lo creamos una vez, lo reutilizamos
     const scene    = new THREE.Scene();
-    const camera   = new THREE.PerspectiveCamera(50, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    scene.background = new THREE.Color(0xf6f7fb);
 
-    camera.position.set(0, 0, 5);
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+    const camera   = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
-    wrap.appendChild(renderer.domElement);
 
-    // Controles
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    let controls = null;
+    let modeloCargado = false;
 
     // Luces
     scene.add(new THREE.AmbientLight(0xffffff, 0.8));
@@ -208,69 +100,106 @@
     luzRelleno.position.set(-5, -3, -3);
     scene.add(luzRelleno);
 
-    // El modelo se carga cuando el usuario abre el modal (ver evento show.bs.modal abajo)
-
     // Loop
     (function animar() {
       requestAnimationFrame(animar);
-      controls.update();
+      controls?.update();
       renderer.render(scene, camera);
     })();
 
-    // Cuando el modal abre:
-    // 1. Leemos la ruta del modelo desde el botón que lo disparó
-    // 2. Ajustamos el tamaño del renderer (estaba oculto, dimensiones eran 0)
-    document.getElementById('modal3d').addEventListener('show.bs.modal', (e) => {
-      // e.relatedTarget es el botón que abrió el modal
-      const rutaModelo = e.relatedTarget?.dataset?.modelo;
+    // =====================================================
+    // mostrarImagen — vuelve a la foto del producto
+    // Estas funciones se llaman desde el onclick del HTML
+    // =====================================================
+    window.mostrarImagen = () => {
+      const wrap   = document.getElementById('visor3d-wrap');
+      const img    = document.getElementById('product-img');
+      const btn3d  = document.getElementById('btn-3d');
+      const btnImg = document.getElementById('btn-imagen');
 
-      if (rutaModelo) {
-        // Limpiamos el modelo anterior si había uno
-        scene.children
-          .filter(obj => obj.name === 'modeloCargado')
-          .forEach(obj => scene.remove(obj));
+      if (wrap) wrap.style.display = 'none';
+      if (img)  img.style.display  = 'block';
 
-        loader3d.classList.remove('oculto');
-        loader3d.textContent = 'Cargando modelo…';
+      btnImg?.classList.replace('btn-outline-dark', 'btn-dark');
+      btn3d?.classList.replace('btn-dark', 'btn-outline-dark');
+    };
 
-        new GLTFLoader().load(
-          './' + rutaModelo,
-          (gltf) => {
-            const modelo = gltf.scene;
-            modelo.name = 'modeloCargado';
+    // =====================================================
+    // mostrar3D — oculta la imagen e inyecta el canvas 3D
+    // =====================================================
+    window.mostrar3D = (rutaModelo) => {
+      const wrap     = document.getElementById('visor3d-wrap');
+      const img      = document.getElementById('product-img');
+      const loader3d = document.getElementById('visor3d-loader');
+      const btn3d    = document.getElementById('btn-3d');
+      const btnImg   = document.getElementById('btn-imagen');
+      const mediaWrap = document.getElementById('media-wrap');
 
-            const caja   = new THREE.Box3().setFromObject(modelo);
-            const centro = new THREE.Vector3();
-            const tamaño = new THREE.Vector3();
-            caja.getCenter(centro);
-            caja.getSize(tamaño);
-            modelo.position.sub(centro);
-            modelo.scale.setScalar(3 / tamaño.length());
+      // Ocultamos la imagen y mostramos el visor
+      if (img)  img.style.display  = 'none';
+      if (wrap) wrap.style.display = 'block';
 
-            scene.add(modelo);
-            loader3d.classList.add('oculto');
-          },
-          null,
-          (err) => {
-            console.error(err);
-            loader3d.textContent = 'No se pudo cargar el modelo.';
-          }
-        );
+      btnImg?.classList.replace('btn-dark', 'btn-outline-dark');
+      btn3d?.classList.replace('btn-outline-dark', 'btn-dark');
+
+      // Inyectamos el canvas en el visor (solo la primera vez)
+      if (!wrap.contains(renderer.domElement)) {
+        wrap.appendChild(renderer.domElement);
       }
-    });
 
-    document.getElementById('modal3d').addEventListener('shown.bs.modal', () => {
-      camera.aspect = wrap.clientWidth / wrap.clientHeight;
+      // Ajustamos tamaño del renderer al contenedor
+      const w = mediaWrap.clientWidth;
+      const h = mediaWrap.clientHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-    });
 
-    // Responsive
-    window.addEventListener('resize', () => {
-      camera.aspect = wrap.clientWidth / wrap.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-    });
+      // OrbitControls apuntando al canvas del visor
+      if (!controls) {
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+      }
+
+      // Cargamos el modelo solo la primera vez
+      if (modeloCargado) return;
+      modeloCargado = true;
+
+      new GLTFLoader().load(
+        './' + rutaModelo,
+        (gltf) => {
+          const modelo = gltf.scene;
+
+          // Centrar y escalar
+          const caja   = new THREE.Box3().setFromObject(modelo);
+          const centro = new THREE.Vector3();
+          const tamaño = new THREE.Vector3();
+          caja.getCenter(centro);
+          caja.getSize(tamaño);
+          modelo.position.sub(centro);
+          modelo.scale.setScalar(3 / tamaño.length());
+
+          // Posicionar cámara después de escalar — 3 es el tamaño normalizado
+          const dist = 3 * 1.8;
+          camera.position.set(0, 0, dist);
+          controls.target.set(0, 0, 0);
+          controls.update();
+
+          scene.add(modelo);
+
+          if (loader3d) {
+            loader3d.style.opacity = '0';
+            setTimeout(() => loader3d.style.display = 'none', 400);
+          }
+        },
+        null,
+        (err) => {
+          console.error(err);
+          if (loader3d) loader3d.textContent = 'No se pudo cargar el modelo.';
+        }
+      );
+    };
+
   </script>
 
 </body>

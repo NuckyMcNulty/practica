@@ -9,7 +9,7 @@
   <link href="styles.css" rel="stylesheet">
 
   <!-- Fuente display para el hero — puedes cambiarla por cualquier otra de Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&display=swap" rel="stylesheet">
 
   <style>
     /* ---------------------------------------------------------
@@ -23,7 +23,7 @@
       height: 100svh;        /* svh = altura de la pantalla sin la barra del browser en móvil */
       min-height: 560px;
       overflow: hidden;
-      background: #07070d;   /* fondo oscuro por si Three.js tarda en cargar */
+      background: #110000;   /* fondo oscuro por si Three.js tarda en cargar */
     }
 
     /* El canvas de Three.js va detrás de todo */
@@ -53,7 +53,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(99,102,241,0.9);
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 20px;
 
       /* Línea decorativa antes del texto */
@@ -62,17 +62,10 @@
       gap: 12px;
     }
 
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: rgba(99,102,241,0.7);
-    }
 
     /* Título principal */
     .hero-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Bonheur Royale', cursive;
       font-size: clamp(2.8rem, 7vw, 5.5rem);  /* clamp = tamaño fluido */
       font-weight: 800;
       line-height: 1.0;
@@ -88,7 +81,7 @@
 
     /* Gradiente en parte del título */
     .hero-title span {
-      background: linear-gradient(135deg, #818cf8, #34d399);
+      background: linear-gradient(135deg, #1f0202, #eb0404);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -118,7 +111,7 @@
     }
 
     .btn-hero-primary {
-      background: #6366f1;
+      background: #eb0e0e;
       color: #fff;
       border: none;
       padding: 14px 28px;
@@ -130,7 +123,7 @@
     }
 
     .btn-hero-primary:hover {
-      background: #4f46e5;
+      background: #fc0808;
       color: #fff;
       transform: translateY(-2px);
     }
@@ -164,7 +157,7 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      color: rgba(255,255,255,0.3);
+      color: rgb(255, 255, 255);
       font-family: 'Syne', sans-serif;
       font-size: 10px;
       letter-spacing: 0.15em;
@@ -184,7 +177,7 @@
       left: 0;
       right: 0;
       height: 160px;
-      background: linear-gradient(to bottom, transparent, #f6f7fb);
+      background: linear-gradient(to bottom, transparent, #200202);
       z-index: 5;
       pointer-events: none;
     }
@@ -206,7 +199,7 @@
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 18px;
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       letter-spacing: -0.02em;
     }
@@ -256,11 +249,14 @@
 
     <!-- Nav flotante sobre el hero -->
     <div class="navbar-hero">
-      <a href="index.html" class="logo">Mi sitio</a>
+      <a href="index.html" class="logo">GdT</a>
       <nav class="d-flex gap-1">
-        <a href="about.html">Acerca</a>
-        <a href="tienda.html">Tienda</a>
+        <a href="about.html">Biografía</a>
+        <a href="tienda.html">Películas</a>
         <a href="contact.html">Contacto</a>
+        <a href="index.html">Inicio</a>
+        <a href="carrito.html">Carrito</a>
+        <a href="auth.html">Iniciar sesión</a>
       </nav>
     </div>
 
@@ -268,25 +264,23 @@
 
     <!-- Contenido del hero -->
     <div class="hero-content">
-      <p class="hero-eyebrow">Diseño · Web · Experiencia</p>
+      <p class="hero-eyebrow">DIRECTOR PRODUCTOR GUIONISTA</p>
       <h1 class="hero-title">
-        Creamos cosas<br>
-        <span>que se sienten</span><br>
-        diferentes.
+        Guillermo<br>
+        <span>del Toro.</span><br>
       </h1>
       <p class="hero-subtitle">
-        Un espacio donde el diseño gráfico y la tecnología web
-        se encuentran para construir experiencias memorables.
+        Guillermo del Toro Gómez es un director cinematográfico, guionista y productor de cine mexicano. Ha sido galardonado con el Premio Goya y varias veces con el Premio Ariel.
       </p>
       <div class="hero-actions">
-        <a href="tienda.html" class="btn-hero-primary">Ver tienda</a>
+        <a href="tienda.html" class="btn-hero-primary">Películas</a>
         <a href="about.html" class="btn-hero-ghost">Saber más</a>
       </div>
     </div>
 
     <!-- Flecha de scroll -->
     <div class="hero-scroll">
-      <span>scroll</span>
+      <span>VÍDEO</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 5v14M5 12l7 7 7-7"/>
       </svg>
@@ -305,7 +299,7 @@
   <!-- Header sticky (aparece al salir del hero) -->
   <header class="bg-white border-bottom sticky-top" id="header-sticky" style="display:none">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Mi sitio</h1>
+      <h1 class="h4 m-0">GdT</h1>
       <nav class="d-flex gap-3">
         <a href="index.html" class="active">Inicio</a>
         <a href="about.html">Acerca</a>
@@ -318,14 +312,14 @@
   <main class="container py-5">
 
     <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h2 class="h5">Actividad: Modal</h2>
-      <p class="text-muted">Un botón abre una ventana encima de la página.</p>
+      <h2 class="h5">3era Master Class de Guillermo del Toro</h2>
+      <p class="text-muted">3era Master Class de Guillermo del Toro: De Geometría a La Forma del Agua</p>
 
       <button
         class="btn btn-dark"
         data-bs-toggle="modal"
         data-bs-target="#modalResena">
-        Ver reseña en modal
+        Ver vídeo.
       </button>
     </section>
 
@@ -336,13 +330,13 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Reseña de chilaquiles</h5>
+          <h5 class="modal-title">De Geometría a La Forma del Agua</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <p class="mb-3">Aquí va tu texto extra (precio, ingredientes, recomendación, etc.).</p>
+          <p class="mb-3">En el marco del Festival Internacional de Cine se llevó a cabo la Master Class impartida por del Toro: De la Geometría a la Forma del Agua. Revívela aquí.</p>
           <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/MpOBf4K_2KA" title="Review" allowfullscreen></iframe>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/zPTFDDuUWVM?si=kEPmMwmdFUFBMsR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
         <div class="modal-footer">
@@ -394,7 +388,7 @@
     // Puedes cambiarlo por BoxGeometry, SphereGeometry, etc.
     // --------------------------------------------------
 
-    const geo = new THREE.TorusKnotGeometry(1, 0.32, 200, 32);
+    const geo = new THREE.SphereGeometry(1, 0.32, 200, 32);
     const mat = new THREE.MeshStandardMaterial({
       color: 0x6366f1,
       roughness: 0.15,

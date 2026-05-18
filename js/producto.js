@@ -34,34 +34,64 @@ async function loadProduct() {
     return;
   }
 
-  const producto = {
-    id,
-    ...snapshot.val()
-  };
+  const producto = { id, ...snapshot.val() };
+
+  const boton3d = producto.modelo ? `
+    <button id="btn-3d" class="btn btn-outline-dark btn-sm" onclick="mostrar3D('${producto.modelo}')">
+      🧊 Ver en 3D
+    </button>` : '';
 
   detail.innerHTML = `
     <div class="row g-4 align-items-start">
+
       <div class="col-12 col-md-6">
-        <img src="${producto.imagen}" alt="${producto.nombre}" class="img-fluid rounded-4">
+
+        <!-- Contenedor imagen/visor — mismo espacio siempre -->
+        <div id="media-wrap" style="
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          background: #f6f7fb;
+          aspect-ratio: 1;">
+
+          <!-- Imagen (visible por defecto) -->
+          <img
+            id="product-img"
+            src="${producto.imagen}"
+            alt="${producto.nombre}"
+            style="width:100%; height:100%; object-fit:cover; display:block;">
+
+          <!-- Visor 3D (oculto por defecto) -->
+          <div id="visor3d-wrap" style="display:none; width:100%; height:100%; position:absolute; inset:0;">
+            <div id="visor3d-loader" style="
+              position:absolute; inset:0; z-index:5;
+              display:flex; align-items:center; justify-content:center;
+              background:#f6f7fb; color:rgba(0,0,0,0.3);
+              font-size:13px; font-family:system-ui,sans-serif;
+              letter-spacing:0.08em;">
+              Cargando modelo…
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botones debajo del media -->
+        <div class="d-flex gap-2 mt-2">
+          <button id="btn-imagen" class="btn btn-dark btn-sm" onclick="mostrarImagen()">
+            🖼 Imagen
+          </button>
+          ${boton3d}
+        </div>
+
       </div>
 
       <div class="col-12 col-md-6">
         <span class="badge text-bg-dark mb-2">${producto.categoria}</span>
         <h2 class="h3 mb-3">${producto.nombre}</h2>
         <p class="fs-5 text-muted">$${producto.precio}</p>
-        <p>
-          Este producto se está cargando dinámicamente desde Firebase Realtime Database.
-        </p>
-
-        <!-- Botón que abre el visor 3D -->
-        <button
-          class="btn btn-dark mt-3"
-          data-bs-toggle="modal"
-          data-bs-target="#modal3d"
-          data-modelo="${producto.modelo || ''}">
-          🧊 Ver en 3D
-        </button>
+        <p>Este producto se está cargando dinámicamente desde Firebase Realtime Database.</p>
       </div>
+
     </div>
   `;
 
@@ -111,7 +141,6 @@ reviewForm.addEventListener("submit", async (e) => {
   try {
     const newRef = push(ref(db, `reviews/${id}`));
     await set(newRef, data);
-
     reviewStatus.innerHTML = `<div class="alert alert-success">Review enviada.</div>`;
     reviewForm.reset();
   } catch (err) {

@@ -19,7 +19,7 @@
    Esto facilita la consistencia visual y el mantenimiento.
 --------------------------------------------------------- */
 :root {
-  --text: #111;
+  --text: #000000;
   --muted: #6b7280;
   --bg: #0d0116;
   --card: #464646;
@@ -70,7 +70,7 @@ header nav a {
 }
 
 header nav a:hover {
-  background: rgba(108, 24, 218, 0.06);
+  background: rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
 }
 

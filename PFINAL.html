@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyecto Final · Creación Web</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --negro: #0c0c0c;
+      --blanco: #f5f2eb;
+      --acento: #e8472a;
+      --acento2: #f5c842;
+      --gris: #6b6b6b;
+      --borde: rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blanco);
+      color: var(--negro);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .site-header {
+      padding: 28px 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--borde);
+      position: sticky;
+      top: 0;
+      background: var(--blanco);
+      z-index: 50;
+    }
+
+    .site-header .curso {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gris);
+    }
+
+    .site-header .semestre {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--gris);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 80px 6vw 60px;
+      border-bottom: 1px solid var(--borde);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+    }
+
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; gap: 32px; } }
+
+    .hero-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--acento);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-num::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--acento);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--acento);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* TICKER */
+    .franja {
+      background: var(--negro);
+      color: var(--blanco);
+      padding: 20px 6vw;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+
+    .franja-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--acento);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .franja-ticker {
+      display: flex;
+      gap: 40px;
+      animation: ticker 24s linear infinite;
+      white-space: nowrap;
+    }
+
+    .franja-ticker span {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(245,242,235,0.4);
+    }
+
+    .franja-ticker span.hl { color: var(--acento2); }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* SECCIONES */
+    .seccion {
+      padding: 80px 6vw;
+      border-bottom: 1px solid var(--borde);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 80px;
+    }
+
+    @media (max-width: 768px) { .seccion { grid-template-columns: 1fr; gap: 32px; } }
+
+    .seccion-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gris);
+      padding-top: 6px;
+    }
+
+    /* OBJETIVOS */
+    .objetivos-lista {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 600px) { .objetivos-lista { grid-template-columns: 1fr; } }
+
+    .objetivo-item {
+      border-top: 2px solid var(--negro);
+      padding-top: 20px;
+    }
+
+    .objetivo-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--acento);
+      margin-bottom: 10px;
+    }
+
+    .objetivo-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .objetivo-desc {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* TEMAS */
+    .temas-header {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 80px;
+      margin-bottom: 60px;
+      padding: 80px 6vw 0;
+    }
+
+    @media (max-width: 768px) { .temas-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; } }
+
+    .temas-intro {
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.4;
+      max-width: 600px;
+    }
+
+    .temas-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border: 1px solid var(--borde);
+      margin: 0 6vw;
+      margin-bottom: 80px;
+    }
+
+    @media (max-width: 900px) { .temas-grid { grid-template-columns: 1fr; } }
+
+    .tema-card {
+      border-right: 1px solid var(--borde);
+      padding: 32px 28px;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tema-card:last-child { border-right: none; }
+
+    .tema-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--negro);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+      z-index: 0;
+    }
+
+    .tema-card:hover::before { transform: translateY(0); }
+
+    .tema-card > * { position: relative; z-index: 1; }
+
+    .tema-card:hover .tema-num  { color: var(--acento2); }
+    .tema-card:hover .tema-titulo,
+    .tema-card:hover .tema-sub,
+    .tema-card:hover .tema-desc { color: var(--blanco); }
+    .tema-card:hover .tema-sub  { color: rgba(245,242,235,0.4); }
+    .tema-card:hover .tema-libre { border-color: var(--acento2); color: var(--acento2); }
+
+    .tema-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--acento);
+      margin-bottom: 40px;
+      transition: color 0.3s;
+    }
+
+    .tema-emoji { font-size: 2rem; margin-bottom: 16px; display: block; }
+
+    .tema-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+
+    .tema-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .tema-desc {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.7;
+      transition: color 0.3s;
+    }
+
+    .tema-libre {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--acento);
+      border: 1px solid var(--acento);
+      padding: 4px 10px;
+      border-radius: 999px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    /* REQUISITOS */
+    .req-tabla { width: 100%; border-collapse: collapse; }
+
+    .req-tabla tr { border-bottom: 1px solid var(--borde); }
+    .req-tabla tr:first-child { border-top: 2px solid var(--negro); }
+
+    .req-tabla td {
+      padding: 20px 0;
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+
+    .req-tabla td:first-child {
+      width: 38%;
+      font-weight: 500;
+      padding-right: 24px;
+    }
+
+    .req-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .req-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .req-lista li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .req-lista li::before {
+      content: '→';
+      color: var(--acento);
+      font-family: 'DM Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    .req-lista li.importante {
+      color: var(--negro);
+      font-weight: 500;
+    }
+
+    .req-lista li.importante::before { content: '★'; color: var(--acento2); }
+
+    /* FLUJO */
+    .flujo {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .flujo-paso {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .flujo-paso:last-child { border-bottom: none; }
+
+    .flujo-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--acento);
+      flex-shrink: 0;
+      padding-top: 2px;
+      min-width: 24px;
+    }
+
+    .flujo-titulo {
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .flujo-desc {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .flujo-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      background: rgba(232,71,42,0.1);
+      color: var(--acento);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* EVALUACIÓN */
+    .criterios-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) { .criterios-grid { grid-template-columns: 1fr 1fr; } }
+
+    .criterio {
+      background: var(--negro);
+      color: var(--blanco);
+      padding: 28px 24px;
+      border-radius: 4px;
+    }
+
+    .criterio-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--acento2);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .criterio-titulo {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .criterio-desc {
+      font-size: 0.8rem;
+      color: rgba(245,242,235,0.45);
+      line-height: 1.6;
+    }
+
+    /* ENTREGA */
+    .entrega {
+      padding: 80px 6vw;
+      background: var(--negro);
+      color: var(--blanco);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 80px;
+    }
+
+    @media (max-width: 768px) { .entrega { grid-template-columns: 1fr; gap: 32px; } }
+
+    .entrega .seccion-label { color: rgba(245,242,235,0.3); }
+
+    .entrega-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    .entrega-titulo em { font-style: italic; color: var(--acento2); }
+
+    .entrega-lista {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+
+    .entrega-lista li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      font-size: 0.95rem;
+      color: rgba(245,242,235,0.65);
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 0;
+    }
+
+    .entrega-lista li .num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--acento);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .fecha-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--acento);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    .site-footer {
+      padding: 24px 6vw;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: var(--negro);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .site-footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(245,242,235,0.2);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="curso">Creación Web · Diseño Gráfico</span>
+    <span class="semestre">2026</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="reveal">
+      <p class="hero-num">Proyecto Final</p>
+      <h1 class="hero-title">
+        Sitio web<br>
+        <em>completo</em><br>
+        + Three.js
+      </h1>
+    </div>
+    <div class="reveal">
+      <p class="hero-desc">
+        Aplicarás todo lo aprendido — estructura multipágina, Firebase Auth, tienda dinámica,
+        carrito de compras y visuales 3D — en un sitio web real sobre un tema de tu elección.
+        El resultado debe demostrar tanto habilidad técnica como criterio visual.
+      </p>
+      <div class="hero-meta">
+        <div>
+          <div class="meta-label">Modalidad</div>
+          <div class="meta-value">Individual</div>
+        </div>
+        <div>
+          <div class="meta-label">Duración</div>
+          <div class="meta-value">3 semanas</div>
+        </div>
+        <div>
+          <div class="meta-label">Temas</div>
+          <div class="meta-value">5 opciones</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="franja">
+    <span class="franja-label">Stack</span>
+    <div class="franja-ticker">
+      <span class="hl">HTML · CSS · JS</span><span>·</span>
+      <span>Bootstrap 5</span><span>·</span>
+      <span class="hl">Firebase Auth</span><span>·</span>
+      <span>Realtime Database</span><span>·</span>
+      <span class="hl">Three.js</span><span>·</span>
+      <span>GLTFLoader</span><span>·</span>
+      <span>OrbitControls</span><span>·</span>
+      <span class="hl">Carrito de compras</span><span>·</span>
+      <span>Módulos ES</span><span>·</span>
+      <span class="hl">CSS Custom Properties</span><span>·</span>
+      <!-- duplicado para loop -->
+      <span class="hl">HTML · CSS · JS</span><span>·</span>
+      <span>Bootstrap 5</span><span>·</span>
+      <span class="hl">Firebase Auth</span><span>·</span>
+      <span>Realtime Database</span><span>·</span>
+      <span class="hl">Three.js</span><span>·</span>
+      <span>GLTFLoader</span><span>·</span>
+      <span>OrbitControls</span><span>·</span>
+      <span class="hl">Carrito de compras</span><span>·</span>
+      <span>Módulos ES</span><span>·</span>
+      <span class="hl">CSS Custom Properties</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- OBJETIVOS -->
+  <section class="seccion">
+    <p class="seccion-label reveal">Objetivos</p>
+    <div class="objetivos-lista">
+      <div class="objetivo-item reveal">
+        <div class="objetivo-num">01</div>
+        <div class="objetivo-titulo">Identidad visual con intención</div>
+        <p class="objetivo-desc">Paleta, tipografía y layout adaptados al tema. El sitio debe verse como si hubiera sido diseñado para ese mundo específico.</p>
+      </div>
+      <div class="objetivo-item reveal">
+        <div class="objetivo-num">02</div>
+        <div class="objetivo-titulo">Autenticación real</div>
+        <p class="objetivo-desc">Registro e inicio de sesión con Firebase Auth. Cada usuario ve solo su propio contenido — su carrito, sus pedidos.</p>
+      </div>
+      <div class="objetivo-item reveal">
+        <div class="objetivo-num">03</div>
+        <div class="objetivo-titulo">Tienda dinámica con Firebase</div>
+        <p class="objetivo-desc">Los productos vienen de Realtime Database. Carrito de compras funcional que guarda las órdenes del usuario en Firebase.</p>
+      </div>
+      <div class="objetivo-item reveal">
+        <div class="objetivo-num">04</div>
+        <div class="objetivo-titulo">Experiencia 3D integrada</div>
+        <p class="objetivo-desc">Al menos una experiencia con Three.js que aporte al diseño: hero, visor de producto, partículas, o animación con sentido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMAS -->
+  <div class="temas-header">
+    <p class="seccion-label reveal">Temas</p>
+    <p class="temas-intro reveal">Elige uno.</p>
+  </div>
+
+  <div class="temas-grid reveal">
+    <div class="tema-card">
+      <div class="tema-num">Tema 01</div>
+      <span class="tema-emoji">🛹</span>
+      <div class="tema-titulo">Skateboarding</div>
+      <div class="tema-sub">Cultura urbana</div>
+      <p class="tema-desc">Cultura, comunidad, locaciones, trucos, marcas. Tienda de equipo. Estética de grafiti, movimiento y actitud.</p>
+    </div>
+    <div class="tema-card">
+      <div class="tema-num">Tema 02</div>
+      <span class="tema-emoji">🌕</span>
+      <div class="tema-titulo">Misión Artemis</div>
+      <div class="tema-sub">Exploración espacial</div>
+      <p class="tema-desc">La misión de NASA a la Luna. Tienda de merch espacial. Estética futurista, datos reales, 3D con objetos espaciales.</p>
+    </div>
+    <div class="tema-card">
+      <div class="tema-num">Tema 03</div>
+      <span class="tema-emoji">🍜</span>
+      <div class="tema-titulo">Gastronomía</div>
+      <div class="tema-sub">País a elegir</div>
+      <p class="tema-desc">Cocina de un país: platillos, ingredientes, regiones. Tienda de productos o utensilios. Colores, texturas y apetito.</p>
+      <span class="tema-libre">Tú eliges el país</span>
+    </div>
+    <div class="tema-card">
+      <div class="tema-num">Tema 04</div>
+      <span class="tema-emoji">🎬</span>
+      <div class="tema-titulo">Cine de Autor</div>
+      <div class="tema-sub">Director a elegir</div>
+      <p class="tema-desc">Homenaje a un director. Tienda de posters, libros o merch. Layout y paleta inspirados en su estética cinematográfica.</p>
+      <span class="tema-libre">Tú eliges el director</span>
+    </div>
+    <div class="tema-card">
+      <div class="tema-num">Tema 05</div>
+      <span class="tema-emoji">🏛</span>
+      <div class="tema-titulo">Arquitectura</div>
+      <div class="tema-sub">Corriente a elegir</div>
+      <p class="tema-desc">Brutalismo, modernismo, art déco, parametrismo. Tienda de libros o prints. Sitio con criterio curatorial y 3D que refleje la corriente.</p>
+      <span class="tema-libre">Tú eliges la corriente</span>
+    </div>
+  </div>
+
+  <!-- FLUJO DE USUARIO -->
+  <section class="seccion">
+    <p class="seccion-label reveal">Flujo de<br>usuario</p>
+    <div class="flujo reveal">
+      <div class="flujo-paso">
+        <div class="flujo-num">01</div>
+        <div>
+          <div class="flujo-titulo">Registro e inicio de sesión</div>
+          <p class="flujo-desc">El usuario puede crear una cuenta con email y contraseña, o iniciar sesión si ya tiene una. Sin cuenta, no puede comprar.</p>
+          <span class="flujo-badge">Firebase Auth · email + password</span>
+        </div>
+      </div>
+      <div class="flujo-paso">
+        <div class="flujo-num">02</div>
+        <div>
+          <div class="flujo-titulo">Explorar la tienda</div>
+          <p class="flujo-desc">Los productos se cargan desde Firebase Realtime Database. Cualquier visitante puede verlos, esté o no autenticado.</p>
+          <span class="flujo-badge">Firebase Realtime Database · onValue</span>
+        </div>
+      </div>
+      <div class="flujo-paso">
+        <div class="flujo-num">03</div>
+        <div>
+          <div class="flujo-titulo">Agregar al carrito</div>
+          <p class="flujo-desc">Solo usuarios autenticados pueden agregar productos al carrito. El carrito se guarda en Firebase bajo el UID del usuario.</p>
+          <span class="flujo-badge">Firebase · carritos/{uid}</span>
+        </div>
+      </div>
+      <div class="flujo-paso">
+        <div class="flujo-num">04</div>
+        <div>
+          <div class="flujo-titulo">Confirmar compra</div>
+          <p class="flujo-desc">El usuario revisa su carrito y confirma. La orden se guarda en Firebase. El carrito se vacía. No hay pago real.</p>
+          <span class="flujo-badge">Firebase · ordenes/{uid}</span>
+        </div>
+      </div>
+      <div class="flujo-paso">
+        <div class="flujo-num">05</div>
+        <div>
+          <div class="flujo-titulo">Mis pedidos</div>
+          <p class="flujo-desc">El usuario autenticado puede ver su historial de órdenes. Solo ve las suyas — nunca las de otros usuarios.</p>
+          <span class="flujo-badge">Firebase · filtrado por UID</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REQUISITOS TÉCNICOS -->
+  <section class="seccion">
+    <p class="seccion-label reveal">Requisitos<br>técnicos</p>
+    <div class="reveal">
+      <table class="req-tabla">
+        <tr>
+          <td><span class="req-cat">Páginas</span>Estructura</td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Mínimo 5 páginas: inicio, tienda, detalle de producto, carrito/cuenta, contacto</li>
+              <li>Navegación consistente en todas las páginas</li>
+              <li>El nav muestra nombre del usuario cuando está autenticado</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="req-cat">Firebase Auth</span>Autenticación</td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Registro con email y contraseña</li>
+              <li class="importante">Inicio y cierre de sesión</li>
+              <li>Rutas protegidas: carrito y pedidos solo para usuarios autenticados</li>
+              <li>Si no está autenticado y intenta comprar, redirigir al login</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="req-cat">Firebase Database</span>Datos</td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Productos cargados desde Realtime Database (no hardcodeados)</li>
+              <li class="importante">Carrito guardado en Firebase bajo el UID del usuario</li>
+              <li class="importante">Órdenes guardadas en Firebase al confirmar compra</li>
+              <li>Formulario de contacto que guarda mensajes en Firebase</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="req-cat">Three.js</span>3D</td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Al menos una experiencia 3D integrada y con sentido en el diseño</li>
+              <li>Puede ser: hero interactivo, visor de producto, fondo de partículas, animación temática</li>
+              <li>El 3D debe relacionarse con el tema — no puede ser solo decorativo sin conexión</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="req-cat">Diseño</span>Visual</td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Variables CSS con paleta adaptada al tema</li>
+              <li class="importante">Tipografía de Google Fonts acorde al tema elegido</li>
+              <li>Responsivo: funcional en móvil y escritorio</li>
+              <li>Animaciones de entrada en el hero (mínimo)</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="req-cat">Código</span>Calidad</td>
+          <td>
+            <ul class="req-lista">
+              <li>Módulos ES (import/export), Firebase en archivo separado</li>
+              <li>CSS comentado por secciones</li>
+              <li>Sin errores en consola al momento de entregar</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- EVALUACIÓN -->
+  <section class="seccion">
+    <p class="seccion-label reveal">Evaluación<br>/10</p>
+    <div class="reveal" style="width:100%;">
+
+      <p style="font-size:0.9rem; color:#555; margin-bottom:32px; max-width:560px; line-height:1.7;">
+        La calificación base es sobre <strong>7 puntos</strong>. Los retos técnicos suman <strong>+3 puntos extra</strong> — cada uno vale 1 punto independiente.
+        Total máximo: <strong>10/10</strong>. Pueden usar IA y otras herramientas — lo que se evalúa es el resultado y las decisiones de diseño.
+      </p>
+
+      <table class="req-tabla">
+        <tr>
+          <td style="width:38%">
+            <span class="req-cat">Diseño visual</span>
+            <strong>2 puntos</strong>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li>Paleta, tipografía y layout coherentes con el tema</li>
+              <li>El sitio se ve como si hubiera sido diseñado para ese mundo</li>
+              <li>Responsivo y con animaciones de entrada</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="req-cat">Firebase Auth + Tienda</span>
+            <strong>2 puntos</strong>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li>Auth funcionando: registro, login y logout</li>
+              <li>Productos cargados desde Realtime Database</li>
+              <li>Carrito y órdenes guardados por UID de usuario</li>
+              <li>Contenido privado visible solo para el usuario autenticado</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="req-cat">Contacto con Firebase</span>
+            <strong>1 punto</strong>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li>Formulario de contacto funcional que guarda mensajes en Realtime Database</li>
+              <li>Campos mínimos: nombre, email y mensaje</li>
+              <li>Feedback visual al usuario al enviar (éxito o error)</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="req-cat">Three.js</span>
+            <strong>1 punto</strong>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li>Experiencia 3D integrada y con sentido en el diseño</li>
+              <li>Relación clara con el tema elegido</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="req-cat">Código y GitHub</span>
+            <strong>1 punto</strong>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li>Repositorio en GitHub con el proyecto completo</li>
+              <li>Sitio desplegado y funcionando en <strong>GitHub Pages</strong></li>
+              <li>Sin errores en consola, CSS comentado, módulos ES correctos</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="req-cat" style="color:#f5c842">Reto técnico</span>
+            <strong>+3 puntos extra</strong>
+            <p style="font-size:0.82rem; color:#888; margin-top:6px; font-weight:300;">Cada reto vale 1 punto de forma independiente.</p>
+          </td>
+          <td>
+            <ul class="req-lista">
+              <li class="importante">Reto 1 — Roles de admin en Firebase Security Rules</li>
+              <li>Crear un nodo <code>admins/{uid}: true</code> en la base de datos</li>
+              <li>Configurar reglas para que el admin pueda leer todos los pedidos y contactos, pero un usuario normal solo vea los suyos</li>
+              <li style="color:#888; font-size:0.82rem;">Pista: investiga cómo usar <code>.root.child()</code> dentro de las reglas de Firebase para verificar roles</li>
+            </ul>
+            <ul class="req-lista" style="margin-top:16px;">
+              <li class="importante">Reto 2 — Modo oscuro con botón</li>
+              <li>Botón que alterna entre modo claro y oscuro usando CSS custom properties</li>
+              <li>La preferencia debe persistir entre páginas usando <code>localStorage</code></li>
+              <li style="color:#888; font-size:0.82rem;">Pista: investiga cómo cambiar atributos en <code>document.documentElement</code> y guardar el estado en <code>localStorage</code></li>
+            </ul>
+            <ul class="req-lista" style="margin-top:16px;">
+              <li class="importante">Reto 3 — Transiciones entre páginas</li>
+              <li>Animación de salida al hacer click en un enlace de navegación</li>
+              <li>Animación de entrada al cargar una página nueva</li>
+              <li>Debe funcionar en todas las páginas del sitio de forma consistente</li>
+              <li style="color:#888; font-size:0.82rem;">Pista: investiga el evento <code>beforeunload</code>, animaciones CSS y cómo coordinarlos para que la transición se vea fluida</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </section>
+
+  <!-- ENTREGA -->
+  <section class="entrega">
+    <p class="seccion-label reveal">Entrega</p>
+    <div class="reveal">
+      <h2 class="entrega-titulo">Lo que vas<br>a <em>entregar</em></h2>
+      <ul class="entrega-lista">
+        <li><span class="num">01</span><span>Carpeta comprimida (.zip) con todos los archivos del proyecto — HTML, CSS, JS, imágenes y modelos 3D</span></li>
+        <li><span class="num">02</span><span>Sitio publicado en <strong style="color:var(--acento2)">GitHub Pages</strong> y funcionando en vivo — el link se entrega en Google Classroom junto con el .zip</span></li>
+        <li><span class="num">03</span><span>Capturas de pantalla de las reglas de seguridad configuradas en la consola de Firebase (obligatorio si hiciste el Reto 1)</span></li>
+        <li><span class="num">04</span><span>Una página dentro del sitio con tus decisiones de diseño: por qué elegiste ese tema, paleta, tipografía y cómo integraste el 3D</span></li>
+      </ul>
+      <p style="font-size:0.9rem; color:rgba(245,242,235,0.4); margin-bottom:32px;">
+        La revisión es personal — el profesor lo revisa contigo directamente en clase. No hay presentación formal.
+      </p>
+      <div class="fecha-badge">📅 &nbsp; Revisión en clase: 21 de mayo</div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>Creación Web · Diseño Gráfico · 2026</span>
+    <span>Proyecto Final</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 60);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

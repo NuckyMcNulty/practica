@@ -1,18 +1,20 @@
 // js/firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-/* Configuración del proyecto Firebase */
 const firebaseConfig = {
-  apiKey: "AIzaSyDkr8gizZfUfKjiG1ti3xrOx-kKmSBUM3M",
-  authDomain: "test-44163.firebaseapp.com",
-  databaseURL: "https://test-44163-default-rtdb.firebaseio.com",
-  projectId: "test-44163",
-  storageBucket: "test-44163.firebasestorage.app",
-  messagingSenderId: "1061076437761",
-  appId: "1:1061076437761:web:8061314c3a23068ff2a900"
+  apiKey: "AIzaSyCQQYMUgoUx-efjOGC1yvTZExFsbtMI57s",
+  authDomain: "logitechtechg.firebaseapp.com",
+  databaseURL: "https://logitechtechg-default-rtdb.firebaseio.com",
+  projectId: "logitechtechg",
+  storageBucket: "logitechtechg.firebasestorage.app",
+  messagingSenderId: "416244789524",
+  appId: "1:416244789524:web:0fffd9cee2379a7ee85201"
 };
 
 /* Inicialización */
 const app = initializeApp(firebaseConfig);
+
 export const db = getDatabase(app);
+export const auth = getAuth(app);
