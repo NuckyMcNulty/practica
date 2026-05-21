@@ -54,7 +54,9 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-/* Login (Entrar al Umbral) */
+/* =====================================================
+   LOGIN (Entrar al Umbral con Redirección Indexada)
+====================================================== */
 loginBtn.addEventListener("click", async () => {
   const email = form.email.value;
   const password = form.password.value;
@@ -69,9 +71,18 @@ loginBtn.addEventListener("click", async () => {
   status.innerHTML = "Verificando firmas con la base central...";
 
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    // 1. Validamos las credenciales con Firebase
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
     status.style.color = "var(--text)";
-    status.innerHTML = "✓ Acceso concedido al archivo central.";
+    status.innerHTML = "✓ Acceso concedido. Redirigiendo al archivo maestro...";
+
+    // 2. Redirección Soberana: Viajamos al index pasando el ID único (UID)
+    setTimeout(() => {
+      window.location.href = `index.html?user=${user.uid}`;
+    }, 1000); // Un segundo de espera para que el usuario alcance a leer el éxito
+
   } catch (err) {
     status.style.color = "var(--accent)";
     status.innerHTML = traducirError(err);

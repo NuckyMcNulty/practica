@@ -1,4 +1,12 @@
 <!doctype html>
+// Agrega esto al inicio del script de tu index.html si necesitas usar el ID
+const params = new URLSearchParams(window.location.search);
+const userId = params.get("user");
+
+if (userId) {
+  console.log("Sello de usuario detectado en el archivo principal:", userId);
+  // Aquí puedes hacer que aparezca un mensaje personalizado o desbloquear contenido
+}
 <html lang="es">
 <head>
   <meta charset="utf-8">
