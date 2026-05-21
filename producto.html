@@ -3,67 +3,141 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Producto · Mi sitio</title>
+  <title>Crónica Individual · Robert Eggers Archive</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Control de inputs y elementos de formulario oscuros */
+    .form-control {
+      background-color: var(--card) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text) !important;
+      border-radius: var(--radius) !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--text) !important;
+      box-shadow: none !important;
+      background-color: var(--card) !important;
+    }
+
+    .form-label, .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* Botones de control del visor e interactividad */
+    .btn-eggers {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+    }
+
+    .btn-eggers-dark {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+    }
+
+    .btn-eggers-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-eggers-outline:hover {
+      border-color: var(--text);
+    }
+
+    /* Contenedor del bloque interactivo de Three.js */
+    #visor3d-wrap {
+      background-color: #0b0b0b;
+      position: relative;
+    }
+
+    #visor3d-loader {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      transition: opacity 0.4s ease;
+      background-color: #0b0b0b;
+    }
+  </style>
 </head>
 <body>
 
-  <header class="bg-white border-bottom sticky-top">
+  <header class="sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Mi sitio</h1>
-      <nav class="d-flex gap-3">
-        <a href="tienda.html">Tienda</a>
-        <a href="contact.html">Contacto</a>
+      <a href="index.html" class="h4 m-0 text-decoration-none" style="font-family:'Cinzel', serif; color: var(--text); letter-spacing: 0.15em;">EGGERS</a>
+
+      <nav class="d-flex gap-2">
         <a href="index.html">Inicio</a>
-        <a href="about.html">Descubrir</a>
-        <a href="carrito.html">Carrito</a>
-        <a href="auth.html">Iniciar sesión</a>
+        <a href="about.html">Biografía</a>
+        <a href="tienda.html">Películas</a>
+        <a href="contact.html">Contacto</a>
       </nav>
     </div>
   </header>
 
   <main class="container py-5">
-    <div id="status" class="mb-3"></div>
-    <section id="productDetail" class="bg-white p-4 rounded-4 shadow-sm mb-4"></section>
+    
+    <div id="status" class="mb-4" style="font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.05em;"></div>
+    
+    <section id="productDetail" class="shadow-sm p-4 p-md-5 mb-5"></section>
 
-    <section class="bg-white p-4 rounded-4 shadow-sm mb-4">
-      <h3 class="h5 mb-3">Agregar review</h3>
-      <form id="reviewForm" class="row g-3">
+    <section class="shadow-sm p-4 p-md-5 mb-5">
+      <h3 class="section-title mb-4">[ Añadir Manifiesto de Espectador ]</h3>
+      
+      <form id="reviewForm" class="row g-4">
         <div class="col-12 col-md-4">
-          <label class="form-label">Nombre</label>
-          <input class="form-control" type="text" name="nombre" required>
+          <label class="form-label">Firma / Nombre</label>
+          <input class="form-control" type="text" name="nombre" placeholder="Ej. Thomas Howard" required>
         </div>
         <div class="col-12 col-md-8">
-          <label class="form-label">Review</label>
-          <input class="form-control" type="text" name="mensaje" required>
+          <label class="form-label">Grabado del Testimonio (Review)</label>
+          <input class="form-control" type="text" name="mensaje" placeholder="Describe tu percepción de la obra..." required>
         </div>
-        <div class="col-12">
-          <button class="btn btn-success" type="submit">Enviar review</button>
+        <div class="col-12 mt-4">
+          <button class="btn btn-eggers btn-eggers-dark" type="submit">Fijar Testimonio</button>
         </div>
       </form>
-      <div id="reviewStatus" class="mt-3"></div>
+      
+      <div id="reviewStatus" class="mt-3" style="font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.05em;"></div>
     </section>
 
-    <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h3 class="h5 mb-3">Reviews</h3>
-      <div id="reviewsList"></div>
+    <section class="shadow-sm p-4 p-md-5">
+      <h3 class="section-title mb-4">[ Crónicas Antiguas de Espectadores ]</h3>
+      <div id="reviewsList" class="d-flex flex-column gap-3">
+        </div>
     </section>
   </main>
 
-  <footer class="bg-white border-top">
-    <div class="container py-3 text-center text-muted">
-      <small>© 2026 · Mi sitio</small>
+  <footer>
+    <div class="container py-4 text-center">
+      <small>© 2026 · Robert Eggers Archive. Departamento de Inspección Física.</small>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="js/producto.js"></script>
 
-  <!-- =====================================================
-       THREE.JS — visor embebido
-  ====================================================== -->
   <script type="importmap">
     {
       "imports": {
@@ -78,39 +152,38 @@
     import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    // Setup — lo creamos una vez, lo reutilizamos
-    const scene    = new THREE.Scene();
-    scene.background = new THREE.Color(0xf6f7fb);
+    // Escenario de penumbra simétrica
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b0b0b); // Fondo profundamente oscuro mate
 
     const camera   = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(devicePixelRatio);
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.0; // Luz contenida, de claroscuro tenebrista
 
     let controls = null;
     let modeloCargado = false;
 
-    // Luces
-    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-    const luzPrincipal = new THREE.DirectionalLight(0xffffff, 3);
+    // Iluminación escultural y dramática (Estilo luz de vela)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.2)); // Luz ambiental muy baja
+    
+    const luzPrincipal = new THREE.DirectionalLight(0xffeedd, 2.5); // Tono cálido tenue
     luzPrincipal.position.set(5, 8, 5);
     scene.add(luzPrincipal);
-    const luzRelleno = new THREE.DirectionalLight(0xffffff, 1);
-    luzRelleno.position.set(-5, -3, -3);
-    scene.add(luzRelleno);
+    
+    const luzContraste = new THREE.DirectionalLight(0x8899aa, 0.8); // Contraluz frío sutil
+    luzContraste.position.set(-5, -3, -3);
+    scene.add(luzContraste);
 
-    // Loop
+    // Ciclo eterno de animación
     (function animar() {
       requestAnimationFrame(animar);
       controls?.update();
       renderer.render(scene, camera);
     })();
 
-    // =====================================================
-    // mostrarImagen — vuelve a la foto del producto
-    // Estas funciones se llaman desde el onclick del HTML
-    // =====================================================
+    // Alternar a la vista de fotografía clásica
     window.mostrarImagen = () => {
       const wrap   = document.getElementById('visor3d-wrap');
       const img    = document.getElementById('product-img');
@@ -120,13 +193,11 @@
       if (wrap) wrap.style.display = 'none';
       if (img)  img.style.display  = 'block';
 
-      btnImg?.classList.replace('btn-outline-dark', 'btn-dark');
-      btn3d?.classList.replace('btn-dark', 'btn-outline-dark');
+      btnImg?.classList.replace('btn-eggers-outline', 'btn-eggers-dark');
+      btn3d?.classList.replace('btn-eggers-dark', 'btn-eggers-outline');
     };
 
-    // =====================================================
-    // mostrar3D — oculta la imagen e inyecta el canvas 3D
-    // =====================================================
+    // Alternar e inyectar el lienzo tridimensional (Canvas)
     window.mostrar3D = (rutaModelo) => {
       const wrap     = document.getElementById('visor3d-wrap');
       const img      = document.getElementById('product-img');
@@ -135,42 +206,39 @@
       const btnImg   = document.getElementById('btn-imagen');
       const mediaWrap = document.getElementById('media-wrap');
 
-      // Ocultamos la imagen y mostramos el visor
       if (img)  img.style.display  = 'none';
       if (wrap) wrap.style.display = 'block';
 
-      btnImg?.classList.replace('btn-dark', 'btn-outline-dark');
-      btn3d?.classList.replace('btn-outline-dark', 'btn-dark');
+      btnImg?.classList.replace('btn-eggers-dark', 'btn-eggers-outline');
+      btn3d?.classList.replace('btn-eggers-outline', 'btn-eggers-dark');
 
-      // Inyectamos el canvas en el visor (solo la primera vez)
       if (!wrap.contains(renderer.domElement)) {
         wrap.appendChild(renderer.domElement);
       }
 
-      // Ajustamos tamaño del renderer al contenedor
+      // Ajuste de proporciones responsivas al contenedor padre
       const w = mediaWrap.clientWidth;
       const h = mediaWrap.clientHeight;
       renderer.setSize(w, h);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
 
-      // OrbitControls apuntando al canvas del visor
       if (!controls) {
         controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
       }
 
-      // Cargamos el modelo solo la primera vez
       if (modeloCargado) return;
       modeloCargado = true;
 
+      // Invocación del archivo GLTF
       new GLTFLoader().load(
         './' + rutaModelo,
         (gltf) => {
           const modelo = gltf.scene;
 
-          // Centrar y escalar
+          // Normalización escalar y centrado espacial de la reliquia
           const caja   = new THREE.Box3().setFromObject(modelo);
           const centro = new THREE.Vector3();
           const tamaño = new THREE.Vector3();
@@ -179,7 +247,6 @@
           modelo.position.sub(centro);
           modelo.scale.setScalar(3 / tamaño.length());
 
-          // Posicionar cámara después de escalar — 3 es el tamaño normalizado
           const dist = 3 * 1.8;
           camera.position.set(0, 0, dist);
           controls.target.set(0, 0, 0);
@@ -195,11 +262,10 @@
         null,
         (err) => {
           console.error(err);
-          if (loader3d) loader3d.textContent = 'No se pudo cargar el modelo.';
+          if (loader3d) loader3d.textContent = '✕ Transmisión fallida. La reliquia 3D es inalcanzable.';
         }
       );
     };
-
   </script>
 
 </body>
