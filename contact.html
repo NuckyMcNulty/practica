@@ -3,92 +3,162 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contacto · Mi sitio</title>
+  <title>Correspondencia · Robert Eggers</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilización de los inputs para evitar el destello blanco de Bootstrap */
+    .form-control, .form-select {
+      background-color: var(--card) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text) !important;
+      border-radius: var(--radius) !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--text) !important;
+      box-shadow: none !important;
+      background-color: var(--card) !important;
+    }
+
+    .form-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* Botones rígidos del ecosistema Eggers */
+    .btn-eggers-submit {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+    }
+
+    .btn-eggers-submit:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .btn-eggers-reset {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+    }
+
+    .btn-eggers-reset:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="bg-white border-bottom sticky-top">
+  <header class="sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">GdT</h1>
+      <a href="index.html" class="h4 m-0 text-decoration-none" style="font-family:'Cinzel', serif; color: var(--text); letter-spacing: 0.15em;">EGGERS</a>
 
-      <nav class="d-flex gap-3">
-        <a href="tienda.html">Tienda</a>
-        <a href="contact.html">Contacto</a>
+      <nav class="d-flex gap-2">
         <a href="index.html">Inicio</a>
-        <a href="about.html">Descubrir</a>
-        <a href="carrito.html">Carrito</a>
-        <a href="auth.html">Iniciar sesión</a>
+        <a href="about.html">Biografía</a>
+        <a href="tienda.html">Películas</a>
+        <a href="contact.html" class="active">Contacto</a>
       </nav>
     </div>
   </header>
 
   <main class="container py-5">
-    <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h2 class="h5 mb-3">Contacto</h2>
-      <p class="text-muted mb-4">Este formulario guarda mensajes en Realtime Database.</p>
+    <section class="shadow-sm p-4 p-md-5">
+      
+      <div class="mb-5">
+        <h2 class="mb-2">Establecer Correspondencia</h2>
+        <p style="color: var(--muted); max-width: 550px; line-height: 1.6;" class="mb-0">
+          Envía tus peticiones formales al archivo central. Los mensajes se registran e indexan directamente en la base de datos de forma perpetua.
+        </p>
+      </div>
 
-      <form id="contactForm" class="row g-3">
+      <form id="contactForm" class="row g-4">
         <div class="col-12 col-md-6">
-          <label class="form-label">Nombre</label>
-          <input class="form-control" type="text" name="nombre" required>
+          <label class="form-label">Nombre del Solicitante</label>
+          <input class="form-control" type="text" name="nombre" placeholder="Ej. Thomas Wake" required>
         </div>
 
         <div class="col-12 col-md-6">
-          <label class="form-label">Email</label>
-          <input class="form-control" type="email" name="email" required>
+          <label class="form-label">Dirección Digital (Email)</label>
+          <input class="form-control" type="email" name="email" placeholder="nombre@dominio.com" required>
         </div>
 
         <div class="col-12">
-          <label class="form-label">Mensaje</label>
-          <textarea class="form-control" name="mensaje" rows="4" required></textarea>
+          <label class="form-label">Mensaje o Manifiesto</label>
+          <textarea class="form-control" name="mensaje" rows="5" placeholder="Redacta tu petición con claridad histórica..." required></textarea>
         </div>
 
         <div class="col-12 col-md-6">
-          <label class="form-label">Producto deseado</label>
+          <label class="form-label">Archivo de Interés Coleccionable</label>
           <select class="form-select" name="producto" required>
-            <option value="-Categoría-">- Seleccionar categoria -</option>
-            <option value="Mouses">Mouses</option>
-            <option value="Teclados">Teclados</option>
-            <option value="Mousepads">Mousepads</option>
-            <option value="Audio/audífonos">Audio/audífonos</option>
-            <option value="Micrófonos">Micrófonos</option>
+            <option value="" disabled selected>- Selecciona una vertiente -</option>
+            <option value="Copias Físicas (Caché)">Copias Físicas de Archivo (Blu-ray / Steelbook)</option>
+            <option value="Material de Producción">Manuscritos y Libretos de Producción</option>
+            <option value="Litografías y Arte">Litografías Orientadas al Folclor</option>
+            <option value="Peticiones Generales">Consultas Generales sobre el Catálogo</option>
           </select>
         </div>
 
-        <div class="col-12 d-flex gap-2">
-          <button id="submitBtn" class="btn btn-success" type="submit">Enviar mensaje</button>
-          <button class="btn btn-outline-secondary" type="reset">Limpiar</button>
+        <div class="col-12 d-flex gap-2 mt-5">
+          <button id="submitBtn" class="btn btn-eggers-submit" type="submit">Enviar al Archivo</button>
+          <button class="btn btn-eggers-reset" type="reset">Limpiar Campos</button>
         </div>
       </form>
 
-      <div id="status" class="mt-3"></div>
+      <div id="status" class="mt-4" style="font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.05em;"></div>
     </section>
   </main>
 
-  <footer class="bg-white border-top">
-    <div class="container py-3 text-center text-muted">
-      <small>© 2026 · Mi sitio</small>
+  <footer>
+    <div class="container py-4 text-center">
+      <small>© 2026 · Robert Eggers Archive. Comunicación de Registros.</small>
     </div>
   </footer>
 
-  <!-- Firebase + Realtime Database -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import { getDatabase, ref, push, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
 
-    // Tu configuración (Realtime Database usa databaseURL)
+    // Configuración de tu base de datos
     const firebaseConfig = {
-    apiKey: "...",
-    authDomain: "logitechtechg.firebaseapp.com",
-    projectId: "logitechtechg",
-    storageBucket: "logitechtechg.firebasestorage.app",
-    messagingSenderId: "416244789524",
-    appId: "1:416244789524:web:0fffd9cee2379a7ee85201"
-  };
+      apiKey: "...",
+      authDomain: "logitechtechg.firebaseapp.com",
+      projectId: "logitechtechg",
+      storageBucket: "logitechtechg.firebasestorage.app",
+      messagingSenderId: "416244789524",
+      appId: "1:416244789524:web:0fffd9cee2379a7ee85201"
+    };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
@@ -104,37 +174,22 @@
         nombre: form.nombre.value.trim(),
         email: form.email.value.trim(),
         mensaje: form.mensaje.value.trim(),
+        archivoInteres: form.producto.value,
         createdAt: serverTimestamp(),
         page: location.href
       };
 
-      if (!data.nombre || !data.email || !data.mensaje) {
-        statusDiv.innerHTML = `<div class="alert alert-warning">Completa todos los campos.</div>`;
+      if (!data.nombre || !data.email || !data.mensaje || !data.archivoInteres) {
+        statusDiv.innerHTML = `<span style="color: var(--accent);">// Advertencia: Completa todos los campos obligatorios del registro.</span>`;
         return;
       }
 
-      statusDiv.innerHTML = `<div class="alert alert-info">Enviando...</div>`;
+      statusDiv.innerHTML = `<span style="color: var(--muted); opacity: 0.7;">Transmitiendo datos al servidor central...</span>`;
       submitBtn.disabled = true;
 
       try {
-        // Crea un nuevo registro en /contactos con un id único
         const newRef = push(ref(db, "contactos"));
         await set(newRef, data);
 
-        statusDiv.innerHTML = `<div class="alert alert-success">✅ Mensaje enviado.</div>`;
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        statusDiv.innerHTML = `
-          <div class="alert alert-danger">
-            ❌ Error: <strong>${err?.code || "sin código"}</strong><br>
-            ${err?.message || "sin mensaje"}
-          </div>`;
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
-  </script>
-
-</body>
-</html>
+        statusDiv.innerHTML = `<span style="color: var(--text);">✓ Correspondencia indexada con éxito en el archivo histórico.</span>`;
+        form

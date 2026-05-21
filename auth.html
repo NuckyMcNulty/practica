@@ -3,44 +3,132 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Acceso</title>
+  <title>Autenticación · Robert Eggers</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilización de los campos de texto estilo archivo oscuro */
+    .form-control {
+      background-color: var(--card) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text) !important;
+      border-radius: var(--radius) !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      padding: 12px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--text) !important;
+      box-shadow: none !important;
+      background-color: var(--card) !important;
+    }
+
+    /* Botones solemnes y tipográficos */
+    .btn-eggers {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+    }
+
+    .btn-eggers-primary {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+    }
+
+    .btn-eggers-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .btn-eggers-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-eggers-secondary:hover {
+      border-color: var(--text);
+    }
+
+    .btn-eggers-danger {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+
+    .btn-eggers-danger:hover {
+      background: var(--accent);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+  </style>
 </head>
 <body>
 
-<header class="bg-white border-bottom sticky-top">
+  <header class="sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">GdT</h1>
+      <a href="index.html" class="h4 m-0 text-decoration-none" style="font-family:'Cinzel', serif; color: var(--text); letter-spacing: 0.15em;">EGGERS</a>
 
-      <nav class="d-flex gap-3">
+      <nav class="d-flex gap-2">
+        <a href="index.html">Inicio</a>
         <a href="about.html">Biografía</a>
         <a href="tienda.html">Películas</a>
         <a href="contact.html">Contacto</a>
-        <a href="index.html">Inicio</a>
-        <a href="carrito.html">Carrito</a>
-        <a href="auth.html">Iniciar sesión</a>
       </nav>
     </div>
   </header>
 
-<div class="container py-5">
-  <h2 class="mb-4">Registro / Login</h2>
+  <main class="container py-5 d-flex justify-content-center">
+    <section class="shadow-sm p-4 p-md-5 w-100" style="max-width: 500px;">
+      
+      <div class="mb-4 text-center">
+        <h2 style="font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.15em; color: var(--text);">Firma de Registro</h2>
+        <p style="color: var(--muted); font-size: 0.9rem;" class="mb-0">Declara tus credenciales para ingresar al archivo central.</p>
+      </div>
 
-  <form id="authForm" class="mb-3">
-    <input class="form-control mb-2" type="email" name="email" placeholder="Email" required>
-    <input class="form-control mb-2" type="password" name="password" placeholder="Password" required>
+      <form id="authForm" class="mb-4 d-flex flex-column gap-3">
+        <div>
+          <input class="form-control" type="email" name="email" placeholder="Dirección de Correo" required>
+        </div>
+        <div>
+          <input class="form-control" type="password" name="password" placeholder="Clave Secreta" required>
+        </div>
 
-    <button class="btn btn-success" type="submit">Registrarse</button>
-    <button class="btn btn-dark" type="button" id="loginBtn">Entrar</button>
-    <button class="btn btn-secondary" type="button" id="logoutBtn">Salir</button>
-  </form>
+        <div class="d-flex gap-2 mt-2">
+          <button class="btn btn-eggers btn-eggers-primary flex-grow-1" type="submit">Registrarse</button>
+          <button class="btn btn-eggers btn-eggers-secondary flex-grow-1" type="button" id="loginBtn">Entrar</button>
+        </div>
+        
+        <button class="btn btn-eggers btn-eggers-danger w-100" type="button" id="logoutBtn">Revocar Sesión</button>
+      </form>
 
-  <div id="authStatus"></div>
-  <div id="authUser" class="mt-2 text-muted"></div>
-</div>
+      <div id="authStatus" style="font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.05em; text-align: center;"></div>
+      <div id="authUser" class="mt-3 text-center small" style="font-family: 'Inter', sans-serif; color: var(--muted); font-weight: 300;"></div>
 
-<script type="module" src="js/auth.js"></script>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container py-4 text-center">
+      <small>© 2026 · Robert Eggers Archive. Control de Firmas Digitales.</small>
+    </div>
+  </footer>
+
+  <script type="module" src="js/auth.js"></script>
 
 </body>
 </html>

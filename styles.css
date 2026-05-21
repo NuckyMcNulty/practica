@@ -1,221 +1,220 @@
-/* =========================================================
-   Hoja de estilos complementaria a Bootstrap
-   ---------------------------------------------------------
-   Objetivo:
-   - Ajustar la apariencia visual del sitio
-   - Mantener compatibilidad con Bootstrap
-   - Evitar sobreescrituras agresivas
-   ========================================================= */
-
-
-/* ---------------------------------------------------------
-   1. Variables CSS (custom properties)
-   ---------------------------------------------------------
-   Se definen valores reutilizables para:
-   - colores base
-   - sombras
-   - bordes
-   - radios
-   Esto facilita la consistencia visual y el mantenimiento.
---------------------------------------------------------- */
 :root {
-  --text: #000000;
-  --muted: #6b7280;
-  --bg: #0d0116;
-  --card: #464646;
-  --border: rgba(0,0,0,.08);
-  --shadow: 0 10px 30px rgba(0,0,0,.08);
-  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
-  --radius: 18px;
+  --text: #f4f1ea;       /* Blanco hueso / pergamino antiguo (alta legibilidad sobre negro) */
+  --muted: #8e8d88;      /* Gris ceniza / niebla */
+  --bg: #080808;         /* Oscuridad absoluta */
+  --card: #121212;       /* Carbón vegetal quemado */
+  --border: rgba(244, 241, 234, 0.12); /* Filos sutiles en tono hueso */
+  --accent: #7c1a1a;     /* Rojo carmesí opaco (sangre seca / pactos) */
+  --shadow: 0 15px 35px rgba(0,0,0,0.8);
+  --shadow-sm: 0 5px 15px rgba(0,0,0,0.6);
+  --radius: 2px;         /* Esquinas casi rectas. El cine histórico requiere rigidez, no curvas */
 }
-
 
 /* ---------------------------------------------------------
    2. Estilos base del documento
-   ---------------------------------------------------------
-   - Se define la tipografía general del sitio
-   - Se establece un fondo neutro con degradados suaves
-   - El fondo no interfiere con los componentes Bootstrap
---------------------------------------------------------- */
+   --------------------------------------------------------- */
 body {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #121213,
-    hsl(140, 4%, 14%)
+  color: var(--text);
+  /* Degradado sutil que simula la iluminación "Chiaroscuro" (luz natural de vela/antorcha) */
+  background: radial-gradient(
+    circle at 50% 30%,
+    #181819 0%,
+    var(--bg) 80%
   );
   background-attachment: fixed;
+  font-family: 'Inter', sans-serif;
 }
 
-
+/* Forzamos títulos con tipografía con serifas para el toque de imprenta antigua */
+h1, h2, h3, h4, h5, h6, .display-font {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
 /* ---------------------------------------------------------
    3. Encabezado y navegación
-   ---------------------------------------------------------
-   - Se mejora la legibilidad de los enlaces del menú
-   - Se añaden transiciones suaves para interacción
-   - No se modifica la estructura del navbar de Bootstrap
---------------------------------------------------------- */
+   --------------------------------------------------------- */
 header {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  background: rgba(8, 8, 8, 0.7);
+  border-bottom: 1px solid var(--border);
 }
 
 header nav a {
   text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 999px;
-  transition: background .2s ease, transform .2s ease;
+  color: var(--muted);
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  transition: color .3s ease, background .3s ease;
 }
 
 header nav a:hover {
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-1px);
+  color: var(--text);
+  background: rgba(244, 241, 234, 0.04);
+  transform: none; /* Eliminamos el brinco juguetón */
 }
 
-/* Estado visual para la página activa del menú */
+/* Estado visual para la página activa (Adiós morado, hola sobriedad) */
 header nav a.active {
-  background: rgba(35, 8, 110, 0.12);
-  color: #4f11a0;
+  background: transparent;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
 }
-
 
 /* ---------------------------------------------------------
    4. Secciones como contenedores visuales
-   ---------------------------------------------------------
-   - Las secciones se tratan como "tarjetas"
-   - Se definen bordes, fondo y radios
-   - Mantiene coherencia con el sistema de diseño
---------------------------------------------------------- */
+   --------------------------------------------------------- */
 section {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card);
+  padding: 3rem 2rem;
 }
 
-
 /* ---------------------------------------------------------
-   5. Sombras suaves
-   ---------------------------------------------------------
-   - Se redefine la clase shadow-sm para un efecto más sutil
-   - Se mantiene la convención de nombres de Bootstrap
---------------------------------------------------------- */
+   5. Sombras dramáticas
+   --------------------------------------------------------- */
 .shadow-sm {
   box-shadow: var(--shadow-sm) !important;
 }
 
-
 /* ---------------------------------------------------------
-   6. Imágenes
-   ---------------------------------------------------------
-   - Se garantiza que las imágenes no excedan su contenedor
-   - Se ajustan radios para coherencia visual
---------------------------------------------------------- */
+   6. Imágenes (Tratamiento de celuloide)
+   --------------------------------------------------------- */
 img {
   max-width: 100%;
+  /* Filtro sutil para emular la fotografía de Jarin Blaschke (director de foto de Eggers) */
+  filter: grayscale(25%) contrast(1.15) brightness(0.9);
+  transition: filter 0.5s ease;
+}
+
+img:hover {
+  filter: grayscale(0%) contrast(1.05) brightness(1);
 }
 
 img.rounded-3 {
-  border-radius: 14px !important;
+  border-radius: var(--radius) !important; /* Mantenemos la coherencia angular */
 }
 
-
 /* ---------------------------------------------------------
-   7. Carousel
-   ---------------------------------------------------------
-   - Se fija una altura uniforme para las imágenes
-   - Se usa object-fit para evitar deformaciones
-   - Se ajusta la altura en pantallas pequeñas
---------------------------------------------------------- */
+   7. Carousel (Monocromático y solemne)
+   --------------------------------------------------------- */
 .carousel-inner img {
-   width: 100%;
-      /* Ajusta esta altura a tu gusto */
-    object-fit: cover;  /* Llena el espacio sin deformarse */
-    object-position: center;
-  height: 420px;
+  width: 100%;
   object-fit: cover;
+  object-position: center;
+  height: 480px;
 }
 
 @media (max-width: 576px) {
   .carousel-inner img {
-    height: 240px;
+    height: 280px;
   }
 }
 
-
 /* ---------------------------------------------------------
-   8. Accordion
-   ---------------------------------------------------------
-   - Se suavizan bordes y tipografía
-   - Se elimina el contorno azul por defecto al hacer foco
---------------------------------------------------------- */
+   8. Accordion (Estilo Grimorio / Libro Antiguo)
+   --------------------------------------------------------- */
 .accordion-item {
+  background-color: transparent;
   border-color: var(--border);
+  color: var(--text);
 }
 
 .accordion-button {
-  font-weight: 600;
+  background-color: var(--card);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgba(124, 26, 26, 0.1);
+  color: var(--text);
+  box-shadow: none;
 }
 
 .accordion-button:focus {
   box-shadow: none;
+  border-color: var(--accent);
 }
 
-
 /* ---------------------------------------------------------
-   9. Botones
-   ---------------------------------------------------------
-   - Se redondean para un estilo más uniforme
-   - Se agrega retroalimentación visual al interactuar
---------------------------------------------------------- */
+   9. Botones (De "píldora amigable" a "bloque sólido")
+   --------------------------------------------------------- */
 .btn {
-  border-radius: 999px;
-  font-weight: 600;
+  border-radius: var(--radius);
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all .3s ease;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+/* Personalización de botones Bootstrap comunes para que encajen en el set */
+.btn-primary {
+  background-color: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
 }
 
+.btn-primary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text);
+}
 
-/* ---------------------------------------------------------
-   10. Formularios
-   ---------------------------------------------------------
-   - Se suavizan bordes
-   - Se mejora el estado de enfoque para accesibilidad
---------------------------------------------------------- */
-.form-control {
-  border-radius: 14px;
+.btn-outline-secondary {
+  color: var(--text);
   border-color: var(--border);
 }
 
-.form-control:focus {
-  box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
-  border-color: rgba(13,110,253,.35);
+.btn-outline-secondary:hover {
+  background-color: var(--text);
+  color: var(--bg);
 }
 
+/* ---------------------------------------------------------
+   10. Formularios
+   --------------------------------------------------------- */
+.form-control {
+  border-radius: var(--radius);
+  background-color: rgba(0, 0, 0, 0.4);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.form-control:focus {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--text);
+  box-shadow: 0 0 0 .2rem rgba(124, 26, 26, 0.2);
+  border-color: var(--accent);
+}
 
 /* ---------------------------------------------------------
    11. Pie de página
-   ---------------------------------------------------------
-   - Se separa visualmente del contenido principal
---------------------------------------------------------- */
+   --------------------------------------------------------- */
 footer {
   border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
 }
 
-
 /* ---------------------------------------------------------
-   12. Clase utilitaria opcional
-   ---------------------------------------------------------
-   - Se puede usar para destacar una sección específica
-   - No es obligatoria para el funcionamiento del sitio
---------------------------------------------------------- */
+   12. Clase utilitaria (Destello de Revelación)
+   --------------------------------------------------------- */
 .highlight {
+  /* En vez de azul/verde tecnológico, un halo de luz de linterna tenebrosa */
   background: linear-gradient(
     135deg,
-    rgba(13,110,253,.10),
-    rgba(25,135,84,.08)
+    rgba(244, 241, 234, 0.03),
+    rgba(124, 26, 26, 0.05)
   );
+  border: 1px solid var(--accent);
 }

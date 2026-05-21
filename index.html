@@ -3,30 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi sitio</title>
+  <title>Robert Eggers | Colección Fílmica</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
 
-  <!-- Fuente display para el hero — puedes cambiarla por cualquier otra de Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* ---------------------------------------------------------
-       HERO SECTION — estilos propios, no tocan el resto del sitio
+       HERO SECTION — Estética Cinematográfica de Robert Eggers
     --------------------------------------------------------- */
-
-    /* El hero ocupa toda la pantalla */
     .hero {
       position: relative;
       width: 100%;
-      height: 100svh;        /* svh = altura de la pantalla sin la barra del browser en móvil */
+      height: 100svh;
       min-height: 560px;
       overflow: hidden;
-      background: #110000;   /* fondo oscuro por si Three.js tarda en cargar */
+      background: #050505; /* Oscuridad absoluta */
     }
 
-    /* El canvas de Three.js va detrás de todo */
     .hero canvas {
       position: absolute;
       inset: 0;
@@ -34,7 +32,6 @@
       height: 100% !important;
     }
 
-    /* Capa de contenido encima del canvas */
     .hero-content {
       position: relative;
       z-index: 10;
@@ -46,107 +43,103 @@
       max-width: 780px;
     }
 
-    /* Eyebrow — texto pequeño arriba del título */
     .hero-eyebrow {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Cinzel', serif;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--muted);
       margin-bottom: 20px;
-
-      /* Línea decorativa antes del texto */
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-
-    /* Título principal */
     .hero-title {
-      font-family: 'Bonheur Royale', cursive;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);  /* clamp = tamaño fluido */
-      font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      color: var(--text);
       margin-bottom: 24px;
-
-      /* Animación de entrada */
+      text-transform: uppercase;
       opacity: 0;
       transform: translateY(30px);
       animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.3s forwards;
     }
 
-    /* Gradiente en parte del título */
+    /* Gradiente sutil del título: de blanco hueso a gris ceniza texturizado */
     .hero-title span {
-      background: linear-gradient(135deg, #1f0202, #eb0404);
+      background: linear-gradient(135deg, #f4f1ea, #8e8d88);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* Subtítulo */
     .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: rgba(255,255,255,0.5);
-      line-height: 1.6;
-      max-width: 480px;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 500px;
       margin-bottom: 40px;
-
       opacity: 0;
       transform: translateY(20px);
       animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.5s forwards;
     }
 
-    /* Botones del hero */
     .hero-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-
       opacity: 0;
       animation: heroIn 1s cubic-bezier(.16,1,.3,1) 0.7s forwards;
     }
 
+    /* Botones rígidos del Hero (Coherencia con las esquinas rectas) */
     .btn-hero-primary {
-      background: #eb0e0e;
-      color: #fff;
-      border: none;
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
       padding: 14px 28px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 15px;
+      border-radius: var(--radius);
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      transition: all 0.3s ease;
     }
 
     .btn-hero-primary:hover {
-      background: #fc0808;
-      color: #fff;
-      transform: translateY(-2px);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--text);
     }
 
     .btn-hero-ghost {
       background: transparent;
-      color: rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text);
+      border: 1px solid var(--border);
       padding: 14px 28px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 15px;
+      border-radius: var(--radius);
+      font-family: 'Cinzel', serif;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       text-decoration: none;
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+      transition: all 0.3s ease;
     }
 
     .btn-hero-ghost:hover {
-      border-color: rgba(255,255,255,0.5);
-      color: #fff;
-      transform: translateY(-2px);
+      border-color: var(--text);
+      background: rgba(244, 241, 234, 0.05);
+      color: var(--text);
     }
 
-    /* Scroll indicator — flecha animada abajo */
     .hero-scroll {
       position: absolute;
       bottom: 32px;
@@ -157,69 +150,68 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      color: rgb(255, 255, 255);
-      font-family: 'Syne', sans-serif;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
       font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      letter-spacing: 0.2em;
       animation: scrollBounce 2s ease-in-out infinite;
     }
 
     .hero-scroll svg {
       width: 18px;
-      opacity: 0.4;
+      opacity: 0.6;
     }
 
-    /* Gradiente que fusiona el hero con el resto del sitio */
     .hero-fade {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       height: 160px;
-      background: linear-gradient(to bottom, transparent, #200202);
+      background: linear-gradient(to bottom, transparent, var(--bg));
       z-index: 5;
       pointer-events: none;
     }
 
-    /* Nav superpuesto al hero — fondo transparente */
+    /* Navbar superior flotante */
     .navbar-hero {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       z-index: 20;
-      padding: 24px 6vw;
+      padding: 32px 6vw;
       display: flex;
-      justify-content: space-between;
+      justify-between: space-between;
       align-items: center;
     }
 
     .navbar-hero .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.2em;
     }
 
     .navbar-hero nav a {
-      color: rgba(255,255,255,0.6);
+      color: var(--muted);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      transition: color 0.2s, background 0.2s;
+      font-family: 'Cinzel', serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 6px 16px;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
     }
 
     .navbar-hero nav a:hover {
-      color: #fff;
-      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      background: rgba(244, 241, 234, 0.04);
     }
 
-    /* Animación de entrada compartida */
     @keyframes heroIn {
       to { opacity: 1; transform: translateY(0); }
     }
@@ -228,135 +220,104 @@
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50%       { transform: translateX(-50%) translateY(6px); }
     }
-
-    /* ---------------------------------------------------------
-       RESTO DEL SITIO — sigue igual que antes
-    --------------------------------------------------------- */
-
-    /* El header sticky original solo se muestra al hacer scroll */
-    .header-sticky {
-      display: none;
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- =====================================================
-       HERO SECTION — lo nuevo
-  ====================================================== -->
-  <section class="hero" id="inicio">
+  <section class="hero" id="inicio" style="border:none; border-radius:0; background:none;">
 
-    <!-- Nav flotante sobre el hero -->
     <div class="navbar-hero">
-      <a href="index.html" class="logo">GdT</a>
-      <nav class="d-flex gap-1">
+      <a href="index.html" class="logo">EGGERS</a>
+      <nav class="d-none d-md-flex gap-1">
+        <a href="index.html">Inicio</a>
         <a href="about.html">Biografía</a>
         <a href="tienda.html">Películas</a>
-        <a href="contact.html">Contacto</a>
-        <a href="index.html">Inicio</a>
-        <a href="carrito.html">Carrito</a>
-        <a href="auth.html">Iniciar sesión</a>
+        <a href="carrito.html">Cosecha</a>
+        <a href="auth.html">El Pacto (Login)</a>
       </nav>
     </div>
 
-    <!-- Canvas de Three.js se inyecta aquí por JS -->
-
-    <!-- Contenido del hero -->
     <div class="hero-content">
-      <p class="hero-eyebrow">DIRECTOR PRODUCTOR GUIONISTA</p>
+      <p class="hero-eyebrow">Director • Guionista • Antropólogo Visual</p>
       <h1 class="hero-title">
-        Guillermo<br>
-        <span>del Toro.</span><br>
+        Robert<br>
+        <span>Eggers.</span><br>
       </h1>
       <p class="hero-subtitle">
-        Guillermo del Toro Gómez es un director cinematográfico, guionista y productor de cine mexicano. Ha sido galardonado con el Premio Goya y varias veces con el Premio Ariel.
+        Obsesión por el detalle histórico, el folclor puritano y la locura humana. Creador de atmósferas crudas donde el mito se vuelve claustrofobia.
       </p>
       <div class="hero-actions">
-        <a href="tienda.html" class="btn-hero-primary">Películas</a>
-        <a href="about.html" class="btn-hero-ghost">Saber más</a>
+        <a href="tienda.html" class="btn-hero-primary">Tienda de Películas</a>
+        <a href="about.html" class="btn-hero-ghost">Examinar Archivo</a>
       </div>
     </div>
 
-    <!-- Flecha de scroll -->
     <div class="hero-scroll">
-      <span>VÍDEO</span>
+      <span>Descender</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 5v14M5 12l7 7 7-7"/>
       </svg>
     </div>
 
-    <!-- Gradiente que funde el hero con el fondo del sitio -->
     <div class="hero-fade"></div>
-
   </section>
 
 
-  <!-- =====================================================
-       RESTO DEL SITIO — igual que antes
-  ====================================================== -->
-
-  <!-- Header sticky (aparece al salir del hero) -->
-  <header class="bg-white border-bottom sticky-top" id="header-sticky" style="display:none">
+  <header class="sticky-top" id="header-sticky" style="display:none">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">GdT</h1>
-      <nav class="d-flex gap-3">
+      <a href="index.html" class="h4 m-0 text-decoration-none" style="font-family:'Cinzel', serif; color: var(--text); letter-spacing: 0.15em;">EGGERS</a>
+      <nav class="d-flex gap-2">
         <a href="index.html" class="active">Inicio</a>
-        <a href="about.html">Acerca</a>
-        <a href="contact.html">Contacto</a>
-        <a href="tienda.html">Store</a>
+        <a href="tienda.html">Catálogo</a>
+        <a href="carrito.html">Cosecha</a>
       </nav>
     </div>
   </header>
 
   <main class="container py-5">
-
-    <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h2 class="h5">3era Master Class de Guillermo del Toro</h2>
-      <p class="text-muted">3era Master Class de Guillermo del Toro: De Geometría a La Forma del Agua</p>
+    <section class="shadow-sm">
+      <h2 class="mb-3">La Obsesión de la Autenticidad</h2>
+      <p style="color: var(--muted);">Desde la construcción con herramientas del siglo XVII en *The Witch* hasta el aislamiento lumínico en *The Lighthouse*.</p>
 
       <button
-        class="btn btn-dark"
+        class="btn btn-primary mt-3"
         data-bs-toggle="modal"
         data-bs-target="#modalResena">
-        Ver vídeo.
+        Ver Análisis Visual
       </button>
     </section>
-
   </main>
 
-  <!-- Modal (igual que antes) -->
   <div class="modal fade" id="modalResena" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">De Geometría a La Forma del Agua</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <div class="modal-content" style="background-color: var(--card); border: 1px solid var(--border); border-radius: var(--radius);">
+        <div class="modal-header" style="border-bottom: 1px solid var(--border);">
+          <h5 class="modal-title" style="font-family: 'Cinzel', serif; color: var(--text);">Fidelidad Histórica en el Celuloide</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <p class="mb-3">En el marco del Festival Internacional de Cine se llevó a cabo la Master Class impartida por del Toro: De la Geometría a la Forma del Agua. Revívela aquí.</p>
+          <p class="mb-4" style="color: var(--muted);">Análisis técnico de los lentes clásicos Baltar utilizados para capturar la atmósfera opresiva de sus largometrajes.</p>
           <div class="ratio ratio-16x9">
-           <iframe width="560" height="315" src="https://www.youtube.com/embed/zPTFDDuUWVM?si=kEPmMwmdFUFBMsR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/7UdmXlBBKSY?si=gooZKyN3R7R3f-nd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <div class="modal-footer" style="border-top: 1px solid var(--border);">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
 
-  <footer class="bg-white border-top">
-    <div class="container py-3 text-center text-muted">
-      <small>© 2026 · Mi sitio</small>
+  <footer>
+    <div class="container py-4 text-center">
+      <small>© 2026 · Robert Eggers Archive. Simulación de Proyecto Visual.</small>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- =====================================================
-       THREE.JS — solo vive en el hero
-  ====================================================== -->
+
   <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js" } }
   </script>
@@ -364,151 +325,105 @@
   <script type="module">
     import * as THREE from 'three';
 
-    // --------------------------------------------------
-    // SETUP — renderer va dentro del hero, no en el body
-    // --------------------------------------------------
-
     const hero = document.getElementById('inicio');
-
     const scene    = new THREE.Scene();
     const camera   = new THREE.PerspectiveCamera(60, hero.clientWidth / hero.clientHeight, 0.1, 100);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true = fondo transparente
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(hero.clientWidth, hero.clientHeight);
-    renderer.setClearColor(0x000000, 0); // completamente transparente
+    renderer.setClearColor(0x000000, 0);
     hero.appendChild(renderer.domElement);
 
     camera.position.set(3.5, 1.5, 4);
     camera.lookAt(0, 0, 0);
 
-
-    // --------------------------------------------------
-    // OBJETO PRINCIPAL — torus knot (más impactante que un cubo)
-    // Puedes cambiarlo por BoxGeometry, SphereGeometry, etc.
-    // --------------------------------------------------
-
-    const geo = new THREE.SphereGeometry(1, 0.32, 200, 32);
+    // Monolito central de piedra basáltica oscura / fría
+    const geo = new THREE.SphereGeometry(1, 32, 32);
     const mat = new THREE.MeshStandardMaterial({
-      color: 0x6366f1,
-      roughness: 0.15,
-      metalness: 0.9,
-      envMapIntensity: 1,
+      color: 0x111111,        /* Obsidiana / Piedra quemada */
+      roughness: 0.5,
+      metalness: 0.85,
     });
 
     const objeto = new THREE.Mesh(geo, mat);
     scene.add(objeto);
 
-
-    // --------------------------------------------------
-    // LUCES — tres puntos de luz para efecto cinematográfico
-    // --------------------------------------------------
-
-    // Luz principal — blanca, desde arriba-derecha
-    const luzPrincipal = new THREE.DirectionalLight(0xffffff, 3);
+    // --- ESQUEMA DE LUZ: CHIAROSCURO NÓRDICO ---
+    
+    // Luz Clave: Blanco frío y duro (Luz del faro o luna de invierno)
+    const luzPrincipal = new THREE.DirectionalLight(0xeeeeee, 4.5);
     luzPrincipal.position.set(5, 8, 5);
     scene.add(luzPrincipal);
 
-    // Luz de acento — morada, desde la izquierda
-    const luzMorada = new THREE.PointLight(0x818cf8, 6, 12, 2);
-    luzMorada.position.set(-4, 2, 3);
-    scene.add(luzMorada);
+    // Luz de Relleno: Gris Niebla (Difusa desde la izquierda)
+    const luzNiebla = new THREE.PointLight(0x777a80, 4, 15, 1.5);
+    luzNiebla.position.set(-4, 2, 3);
+    scene.add(luzNiebla);
 
-    // Luz de acento — verde, desde abajo
-    const luzVerde = new THREE.PointLight(0x34d399, 4, 10, 2);
-    luzVerde.position.set(2, -4, 2);
-    scene.add(luzVerde);
+    // Luz de Contra: Rojo Carmesí Opaco (Simbolizando el folclor de la brujería)
+    const luzContraste = new THREE.PointLight(0x500a0a, 7, 10, 1.2);
+    luzContraste.position.set(2, -4, 2);
+    scene.add(luzContraste);
 
-    // Ambiental mínima
-    scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.03));
 
-
-    // --------------------------------------------------
-    // PARTÍCULAS — puntos flotando alrededor del objeto
-    // --------------------------------------------------
-
+    // --- PARTÍCULAS (Ceniza flotante / Esporas de bosque invernal) ---
     const particleGeo = new THREE.BufferGeometry();
-    const count = 800;
+    const count = 500;
     const posiciones = new Float32Array(count * 3);
 
     for (let i = 0; i < count * 3; i++) {
-      posiciones[i] = (Math.random() - 0.5) * 14;
+      posiciones[i] = (Math.random() - 0.5) * 12;
     }
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(posiciones, 3));
 
     const particleMat = new THREE.PointsMaterial({
-      color: 0x818cf8,
+      color: 0xcccccc, // Ceniza grisácea
       size: 0.025,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.3,
     });
 
     const particulas = new THREE.Points(particleGeo, particleMat);
     scene.add(particulas);
 
-
-    // --------------------------------------------------
-    // INTERACCIÓN CON EL MOUSE
-    // El objeto sigue suavemente al cursor
-    // --------------------------------------------------
-
+    // INTERACCIÓN MOUSE (Suavizado inercial)
     const mouse = { x: 0, y: 0 };
-    const target = { x: 0, y: 0 }; // posición suavizada
+    const target = { x: 0, y: 0 };
 
     hero.addEventListener('mousemove', (e) => {
-      // Convertimos coordenadas del mouse a rango -1 / +1
       mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
       mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
     });
-
-
-    // --------------------------------------------------
-    // LOOP DE ANIMACIÓN
-    // --------------------------------------------------
 
     const reloj = new THREE.Clock();
 
     function animar() {
       requestAnimationFrame(animar);
-
       const t = reloj.getElapsedTime();
 
-      // Rotación base del objeto
-      objeto.rotation.x = t * 0.15;
-      objeto.rotation.y = t * 0.2;
+      objeto.rotation.x = t * 0.1;
+      objeto.rotation.y = t * 0.15;
 
-      // Suavizamos el movimiento del mouse (lerp = interpolación lineal)
-      // Cuanto más pequeño el número (0.03), más suave y lento
       target.x += (mouse.x - target.x) * 0.03;
       target.y += (mouse.y - target.y) * 0.03;
 
-      // Inclinamos el objeto según el mouse
-      objeto.rotation.x += target.y * 0.3;
-      objeto.rotation.y += target.x * 0.3;
+      objeto.rotation.x += target.y * 0.2;
+      objeto.rotation.y += target.x * 0.2;
+      objeto.position.y = Math.sin(t * 0.4) * 0.08; // Respiración lenta, casi imperceptible
 
-      // Movimiento de "respiración"
-      objeto.position.y = Math.sin(t * 0.6) * 0.12;
+      particulas.rotation.y = t * 0.008;
 
-      // Las partículas rotan muy lento
-      particulas.rotation.y = t * 0.02;
-      particulas.rotation.x = t * 0.01;
-
-      // Las luces orbitan para dar vida al reflejo
-      luzMorada.position.x = Math.sin(t * 0.4) * 5;
-      luzMorada.position.z = Math.cos(t * 0.4) * 4;
-      luzVerde.position.x  = Math.cos(t * 0.3) * 4;
-      luzVerde.position.y  = Math.sin(t * 0.3) * -4;
+      // Movimiento lento de las luces de contraste
+      luzNiebla.position.x = Math.sin(t * 0.2) * 5;
+      luzNiebla.position.z = Math.cos(t * 0.2) * 4;
 
       renderer.render(scene, camera);
     }
 
     animar();
-
-
-    // --------------------------------------------------
-    // RESPONSIVE
-    // --------------------------------------------------
 
     window.addEventListener('resize', () => {
       camera.aspect = hero.clientWidth / hero.clientHeight;
@@ -516,24 +431,15 @@
       renderer.setSize(hero.clientWidth, hero.clientHeight);
     });
 
-
-    // --------------------------------------------------
-    // HEADER STICKY — aparece al salir del hero
-    // --------------------------------------------------
-
+    // ELEMENTO INTERSECTION OBSERVER PARA EL NAVBAR STICKY
     const headerSticky = document.getElementById('header-sticky');
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Mostramos el header normal cuando el hero ya no es visible
         headerSticky.style.display = entry.isIntersecting ? 'none' : 'block';
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
-
     observer.observe(hero);
-
   </script>
-
 </body>
 </html>
