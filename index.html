@@ -441,5 +441,19 @@
     );
     observer.observe(hero);
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script type="module">
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get("user");
+
+    if (userId) {
+      console.log("Sello de usuario detectado en el archivo principal:", userId);
+      
+      // Opcional: Si tienes un elemento con id="nav-usuario" en el index,
+      // puedes aprovechar para pintar algo discreto en consola o pantalla.
+    }
+  </script>
+
 </body>
 </html>
