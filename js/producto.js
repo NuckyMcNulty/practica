@@ -149,5 +149,25 @@ reviewForm.addEventListener("submit", async (e) => {
   }
 });
 
+contenedor.innerHTML = `
+  <div class="row g-5">
+    <div class="col-12 col-md-6" id="media-wrap" style="height: 450px; position: relative;">
+      <img id="product-img" src="${obra.imagen}" class="w-100 h-100" style="object-fit: cover;">
+      
+      <div id="visor3d-wrap" class="w-100 h-100" style="display:none;">
+        <div id="visor3d-loader" class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+          Invocando geometría...
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <h2>${obra.nombre}</h2>
+      <button id="btn-imagen" class="btn btn-eggers btn-eggers-dark" onclick="mostrarImagen()">Imagen</button>
+      <button id="btn-3d" class="btn btn-eggers btn-eggers-outline" onclick="mostrar3D('${obra.modelo}')">Ver Reliquia 3D</button>
+      <button id="btnAñadirCarrito" class="btn btn-eggers btn-eggers-dark mt-4">Añadir a la Cosecha</button>
+    </div>
+  </div>
+`;
+
 loadProduct();
 listenReviews();
